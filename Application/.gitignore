@@ -1,0 +1,55 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Các file APK đã build
+*.apk
+*.ap_
+
+# File cho máy ảo Dalvik
+*.dex
+
+# File Java được tạo ra sau khi biên dịch
+*.class
+
+# File được sinh ra
+bin/
+gen/
+out/
+
+# Các file gradle
+.gradle/
+build/
+
+# Các file tùy chỉnh nội bộ trong máy
+
+# Các file Proguard sinh ra bởi Eclipse
+proguard/
+
+# Các file log
+*.log
+
+# Các file tạm của Android Studio Navigation
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# Intellij
+.idea/workspace.xml
+.idea/libraries
+
+# Keystore file
+*.jks
