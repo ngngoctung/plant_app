@@ -1,0 +1,28 @@
+@startuml login_signup
+scale 1.5
+'scale 1.5 | scale 200 width | scale 100 height | scale [max] 200x100
+left to right direction
+actor "User" as user
+actor "Firebase" as firebase
+rectangle Login&Signup {
+  usecase "Login" as login
+  usecase "Signup" as signup
+  usecase "Verify account" as verify
+  usecase "Invalid account" as invalid
+  usecase "Created new account" as create_account
+  usecase "Forgot password" as forgot_password
+  usecase "Reset password" as reset_password
+}
+'User
+user --> login
+user --> signup
+user --> forgot_password
+login ..> verify : <<include>>
+login <.. invalid : <<extend>>
+signup ..> create_account : <<include>>
+forgot_password ..> reset_password : <<include>>
+'Firebase
+verify <-- firebase
+create_account <-- firebase
+reset_password <-- firebase
+@enduml

@@ -1,0 +1,27 @@
+@startuml display_species_article
+scale 1.5
+'scale 1.5 | scale 200 width | scale 100 height | scale [max] 200x100
+left to right direction
+actor "User" as user
+actor "Firebase" as firebase
+
+rectangle Display {
+  usecase "Display a list specie" as display_species
+  usecase "Display a list article" as display_articles
+  usecase "Display detail species" as display_detail_specie
+  usecase "Display detail article" as display_detail_article
+  usecase "Liked/Unliked" as like
+  usecase "Manage database" as manage_database
+}
+'User
+user --> display_species
+user --> display_articles
+display_species <.. display_detail_specie : <<extend>>
+display_articles <.. display_detail_article : <<extend>>
+display_detail_specie <.. like : <<extend>>
+display_detail_article <.. like : <<extend>>
+'Firebase
+note "Process data \nfor all use cases" as _note
+_note .. manage_database
+manage_database <-- firebase 
+@enduml

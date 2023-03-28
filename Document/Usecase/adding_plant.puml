@@ -1,0 +1,23 @@
+@startuml adding_new_plant
+scale 1.5
+'scale 1.5 | scale 200 width | scale 100 height | scale [max] 200x100
+left to right direction
+actor "User" as user
+actor "Firebase" as firebase
+
+rectangle AddingPlant {
+  usecase "Add new plant" as add_new_plant
+  usecase "Store data" as store_data
+  usecase "Display profile" as display_profile
+  usecase "Display  Articles/Species Liked" as display_liked
+}
+
+'User
+user --> add_new_plant
+user --> display_profile
+user --> display_liked
+add_new_plant ..> store_data : <<include>>
+'Firebase
+store_data <-- firebase
+
+@enduml
