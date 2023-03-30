@@ -1,0 +1,43 @@
+@startuml sign_up_activity
+|#white|user| User
+|#palegreen|green| Green
+|#gold|firebase| Firebase
+|user|
+start
+:Sign up account;
+|green|
+repeat 
+repeat 
+:Get input from user;
+fork
+  :Check error empty input;
+  if (Empty?) then (yes)
+    :Show error empty imput;
+  else (no)
+  endif
+fork again
+  :Check error Email format;
+  if (Email format?) then (yes)
+    :Show error wrong email format;
+  else (no)
+  endif
+fork again
+  :Check error password conditions;
+  if (Password conditions?) then (yes)
+    :Show error wrong password conditions;
+  else (no)
+  endif
+fork again
+  :Check error confirm password;
+  if (Confirm password the same?) then (yes)
+    :Show error not the same password;
+  else (no)
+  endif
+end fork {or}
+repeat while (At least a error from above check?) is (Yes) not (No)
+|firebase|
+backward :Show error email already exists;
+repeat while (Email already exists?) is (Yes) not (No)
+:Create account;
+stop
+@enduml
