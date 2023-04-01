@@ -27,12 +27,6 @@ fork again
     :Show error wrong password conditions;
   else (no)
   endif
-fork again
-  :Check error confirm password;
-  if (Confirm password the same?) then (yes)
-    :Show error not the same password;
-  else (no)
-  endif
 end fork {or}
 repeat while (At least a error from above check?) is (Yes) not (No)
 |firebase|
