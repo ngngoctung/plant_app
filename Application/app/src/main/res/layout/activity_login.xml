@@ -25,19 +25,21 @@
         android:id="@+id/textfield_password"
         style="?attr/textInputFilledStyle"
         android:layout_width="329dp"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
         android:layout_marginEnd="23dp"
         android:hint="Password"
         android:textColorHint="#6A6F7D"
         app:boxStrokeColor="#2DDA93"
+        app:endIconMode="password_toggle"
+        app:errorEnabled="true"
+        app:helperTextEnabled="true"
         app:hintTextColor="#6A6F7D"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.79"
-        app:endIconMode="password_toggle">
+        app:layout_constraintVertical_bias="0.839">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="329dp"

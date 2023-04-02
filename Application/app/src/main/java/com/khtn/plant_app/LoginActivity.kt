@@ -22,31 +22,42 @@ class LoginActivity : AppCompatActivity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
         // Initialize Email, Password textField
+        val tfEmail = binding.textfieldEmail
+        val tfPassword = binding.textfieldPassword
+
+        tfEmail.editText?.doOnTextChanged { it, _, _, _ ->
+            tfEmail.error = null
+        }
+        tfPassword.editText?.doOnTextChanged { it, _, _, _ ->
+            tfPassword.error = null
+        }
 
 
         binding.buttonLogin.setOnClickListener{
             val email = binding.textfieldEmail.editText?.text.toString()
             val password = binding.textfieldPassword.editText?.text.toString()
 
-            if(email.isNotEmpty() && password.isNotEmpty()){
-                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
-                    if(it.isSuccessful){
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-                    else
-                    {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-                    }
+            if (email.isEmpty()) {
+                tfEmail.error = "Email cannot be empty"
+                return@setOnClickListener
+            }
+
+            if (password.isEmpty()) {
+                tfPassword.error = "Password cannot be empty"
+                return@setOnClickListener
+            }
+
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
+                if(it.isSuccessful)
+                {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+                else
+                {
+                    Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
-            else
-            {
-                Toast.makeText(this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show()
-            }
         }
-
-
-
     }
 }
