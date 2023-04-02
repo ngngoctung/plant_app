@@ -9,6 +9,7 @@
 
 
     <TextView
+        android:id="@+id/textview_dont_have_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="480dp"
@@ -85,70 +86,61 @@
     <TextView
         android:layout_width="329dp"
         android:layout_height="37dp"
-        android:layout_marginStart="23dp"
         android:layout_marginTop="108dp"
-        android:layout_marginEnd="23dp"
         android:text="Hello"
         android:textColor="#36455A"
         android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/button_login" />
 
     <TextView
         android:layout_width="329dp"
         android:layout_height="24dp"
-        android:layout_marginStart="23dp"
         android:layout_marginTop="152dp"
-        android:layout_marginEnd="23dp"
         android:text="Let's Learn More About Plants"
         android:textColor="#495566"
         android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/button_login" />
 
     <CheckBox
         android:id="@+id/checkbox_remember_me"
         android:layout_width="134dp"
         android:layout_height="31dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="348dp"
+        android:layout_marginTop="357dp"
         android:backgroundTint="#2DDA93"
         android:foregroundTint="#2DDA93"
         android:text="Remember me"
         android:textColor="#6A6F7D"
         android:textColorHint="#6A6F7D"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/button_login"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textview_forgot_password"
         android:layout_width="98dp"
         android:layout_height="21dp"
-        android:layout_marginTop="357dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginTop="365dp"
         android:gravity="right"
         android:text="Forgot Password?"
         android:textColor="#6A6F7D"
         android:textSize="11dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="@id/button_login"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textview_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="480dp"
         android:text="Sign up"
         android:textColor="#2DDA93"
         android:textSize="12dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.686"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/textview_dont_have_account"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
