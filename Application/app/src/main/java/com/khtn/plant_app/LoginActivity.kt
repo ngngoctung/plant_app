@@ -28,17 +28,17 @@ class LoginActivity : AppCompatActivity() {
         val tfPassword = binding.textfieldPassword
 
         // Reset state input when have change on it
-        tfEmail.editText?.doOnTextChanged { it, _, _, _ ->
+        tfEmail.editText?.doOnTextChanged { _, _, _, _ ->
             tfEmail.error = null
         }
-        tfPassword.editText?.doOnTextChanged { it, _, _, _ ->
+        tfPassword.editText?.doOnTextChanged { _, _, _, _ ->
             tfPassword.error = null
         }
 
 
         binding.buttonLogin.setOnClickListener{
-            val email = binding.textfieldEmail.editText?.text.toString()
-            val password = binding.textfieldPassword.editText?.text.toString()
+            val email = tfEmail.editText?.text.toString()
+            val password = tfPassword.editText?.text.toString()
 
             // Set error when empty input email, password
             if (email.isEmpty()) {
@@ -62,12 +62,18 @@ class LoginActivity : AppCompatActivity() {
                 {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
                 else
                 {
                     Toast.makeText(this, "Account does not exist", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        binding.textviewForgotPassword.setOnClickListener{
+            val intent = Intent(this, ResetPasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 }
