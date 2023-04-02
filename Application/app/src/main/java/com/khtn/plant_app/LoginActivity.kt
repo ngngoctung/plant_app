@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -20,6 +21,8 @@ class LoginActivity : AppCompatActivity() {
 
         // Initialize Firebase Auth
         auth = Firebase.auth
+        // Initialize Email, Password textField
+
 
         binding.buttonLogin.setOnClickListener{
             val email = binding.textfieldEmail.editText?.text.toString()
