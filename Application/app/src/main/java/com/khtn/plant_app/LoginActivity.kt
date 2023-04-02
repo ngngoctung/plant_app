@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -61,6 +62,10 @@ class LoginActivity : AppCompatActivity() {
                 {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                }
+                else
+                {
+                    Toast.makeText(this, "Account does not exist", Toast.LENGTH_SHORT).show()
                 }
             }
         }
