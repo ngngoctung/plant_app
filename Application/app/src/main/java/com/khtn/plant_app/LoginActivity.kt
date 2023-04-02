@@ -3,7 +3,7 @@ package com.khtn.plant_app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Patterns
 import androidx.core.widget.doOnTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -21,10 +21,12 @@ class LoginActivity : AppCompatActivity() {
 
         // Initialize Firebase Auth
         auth = Firebase.auth
+
         // Initialize Email, Password textField
         val tfEmail = binding.textfieldEmail
         val tfPassword = binding.textfieldPassword
 
+        // Reset state input when have change on it
         tfEmail.editText?.doOnTextChanged { it, _, _, _ ->
             tfEmail.error = null
         }
@@ -37,8 +39,14 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.textfieldEmail.editText?.text.toString()
             val password = binding.textfieldPassword.editText?.text.toString()
 
+            // Set error when empty input email, password
             if (email.isEmpty()) {
                 tfEmail.error = "Email cannot be empty"
+                return@setOnClickListener
+            }
+
+            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                tfEmail.error = "Invalid email address"
                 return@setOnClickListener
             }
 
@@ -47,17 +55,16 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Verify account using Firebase Auth
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                 if(it.isSuccessful)
                 {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
-                else
-                {
-                    Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-                }
             }
         }
     }
 }
+
+
