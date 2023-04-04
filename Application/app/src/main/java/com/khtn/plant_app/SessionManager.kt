@@ -5,28 +5,43 @@ import android.content.SharedPreferences
 
 class SessionManager(context: Context?) {
     private val PREF_NAME = "SharedPreferences"
-    private val IS_LOGIN = "is_login"
+    private val KEY_IS_LOGIN = "is_login"
+    private val KEY_EMAIL = "email"
+    private val KEY_FULL_NAME = "full_name"
+    private val KEY_PASSWORD = "password"
 
-    val pref: SharedPreferences? = context?.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-    val editor: SharedPreferences.Editor? = pref?.edit()
+    private val pref: SharedPreferences? = context?.getSharedPreferences(PREF_NAME,
+                                                                        Context.MODE_PRIVATE)
+    private val editor: SharedPreferences.Editor? = pref?.edit()
 
     fun setLogin(isLogin: Boolean) {
-        editor?.putBoolean(IS_LOGIN, isLogin)
+        editor?.putBoolean(KEY_IS_LOGIN, isLogin)
         editor?.apply()
     }
 
-    fun setUserName(username: String?){
-        editor?.putString("username", username)
+    fun setInfoUser(email: String, password: String, fullName: String){
+        editor?.putString(KEY_EMAIL, email)
+        editor?.putString(KEY_PASSWORD, password)
+        editor?.putString(KEY_FULL_NAME, fullName)
         editor?.apply()
     }
 
     fun isLogin(): Boolean?{
-        return pref?.getBoolean(IS_LOGIN, false)
+        return pref?.getBoolean(KEY_IS_LOGIN, false)
     }
 
     fun getUserName(): String?{
-        return pref?.getString("username", "")
+        return pref?.getString(KEY_EMAIL, "")
     }
+
+    fun getFullName(): String?{
+        return pref?.getString(KEY_FULL_NAME, "")
+    }
+
+    fun getPassword(): String?{
+        return pref?.getString(KEY_PASSWORD, "")
+    }
+
 
     fun removeData(){
         editor?.clear()

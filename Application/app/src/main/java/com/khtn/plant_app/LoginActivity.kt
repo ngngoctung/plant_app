@@ -1,13 +1,16 @@
 package com.khtn.plant_app
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.khtn.plant_app.databinding.ActivityLoginBinding
 
@@ -15,17 +18,26 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
     private lateinit var myPref: SessionManager
+    private var db = Firebase.firestore
+    private var TAG_E = "TEST_FIRESTORE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         myPref = SessionManager(this)
+
+        // Initialize user variable
+        var email = ""
+        var password = ""
+        var fullName = ""
+
         // Check login
         checkLogin()
 
         // Initialize Firebase Auth
         auth = Firebase.auth
+        // Access a Cloud Firestore instance from your Activity
 
         // Initialize Email, Password textField
         val tfEmail = binding.textfieldEmail
@@ -41,8 +53,19 @@ class LoginActivity : AppCompatActivity() {
 
 
         binding.buttonLogin.setOnClickListener{
-            val email = tfEmail.editText?.text.toString()
-            val password = tfPassword.editText?.text.toString()
+            email = tfEmail.editText?.text.toString()
+            password = tfPassword.editText?.text.toString()
+
+            // Read data user from FireStore
+            db.collection("Users").document("user2@gmail.com")
+                .get()
+                .addOnSuccessListener {result ->
+                    //Log.d(TAG_E, "${result.id} => ${result.data}")
+                    fullName = result.data?.get("name").toString()
+                }
+                .addOnFailureListener{exception ->
+                    //Log.w(TAG_E, "Error getting documents.", exception)
+                }
 
             // Set error when empty input email, password
             if (email.isEmpty()) {
@@ -66,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
                 {
                     //Set myPref to keep login
                     myPref.setLogin(true)
-                    myPref.setUserName(email)
+                    myPref.setInfoUser(email, password, fullName)
 
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
