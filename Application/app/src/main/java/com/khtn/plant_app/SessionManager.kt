@@ -9,10 +9,17 @@ class SessionManager(context: Context?) {
     private val KEY_EMAIL = "email"
     private val KEY_FULL_NAME = "full_name"
     private val KEY_PASSWORD = "password"
+    private val KEY_REMEMBER_ME = "remember_me"
+    private val KEY_RM = "rm"
 
     private val pref: SharedPreferences? = context?.getSharedPreferences(PREF_NAME,
                                                                         Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor? = pref?.edit()
+
+    fun setRememberMe(isRememberMe: Boolean) {
+        editor?.putBoolean(KEY_REMEMBER_ME, isRememberMe)
+        editor?.apply()
+    }
 
     fun setLogin(isLogin: Boolean) {
         editor?.putBoolean(KEY_IS_LOGIN, isLogin)
@@ -24,6 +31,10 @@ class SessionManager(context: Context?) {
         editor?.putString(KEY_PASSWORD, password)
         editor?.putString(KEY_FULL_NAME, fullName)
         editor?.apply()
+    }
+
+    fun isRememberMe(): Boolean?{
+        return pref?.getBoolean(KEY_REMEMBER_ME, false)
     }
 
     fun isLogin(): Boolean?{
@@ -44,7 +55,7 @@ class SessionManager(context: Context?) {
 
 
     fun removeData(){
-        editor?.clear()
+        editor?.putBoolean(KEY_IS_LOGIN, false)
         editor?.apply()
     }
 }

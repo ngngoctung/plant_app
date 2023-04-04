@@ -51,6 +51,18 @@ class LoginActivity : AppCompatActivity() {
             tfPassword.error = null
         }
 
+        // Check remember me
+        if(myPref.isRememberMe()!!)
+        {
+            Log.d(TAG_E, "Set text because have remember me")
+            tfEmail.editText?.setText(myPref.getUserName().toString())
+            tfPassword.editText?.setText(myPref.getPassword().toString())
+        }
+        else
+        {
+            Log.d(TAG_E, "Set text failed because don't have remember me")
+        }
+
 
         binding.buttonLogin.setOnClickListener{
             email = tfEmail.editText?.text.toString()
@@ -60,11 +72,11 @@ class LoginActivity : AppCompatActivity() {
             db.collection("Users").document("user2@gmail.com")
                 .get()
                 .addOnSuccessListener {result ->
-                    //Log.d(TAG_E, "${result.id} => ${result.data}")
+                    Log.d(TAG_E, "${result.id} => ${result.data}")
                     fullName = result.data?.get("name").toString()
                 }
                 .addOnFailureListener{exception ->
-                    //Log.w(TAG_E, "Error getting documents.", exception)
+                    Log.w(TAG_E, "Error getting documents.", exception)
                 }
 
             // Set error when empty input email, password
@@ -87,6 +99,16 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                 if(it.isSuccessful)
                 {
+                    //Set user information to remember me
+                    if (binding.checkboxRememberMe.isChecked){
+                        Log.d(TAG_E, "Checked Box Remember me")
+                        myPref.setRememberMe(true)
+                    }
+                    else{
+                        Log.d(TAG_E, "Unchecked Box Remember me")
+                        myPref.setRememberMe(false)
+                    }
+
                     //Set myPref to keep login
                     myPref.setLogin(true)
                     myPref.setInfoUser(email, password, fullName)
