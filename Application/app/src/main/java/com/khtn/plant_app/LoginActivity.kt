@@ -14,11 +14,15 @@ import com.khtn.plant_app.databinding.ActivityLoginBinding
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var myPref: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        myPref = SessionManager(this)
+        // Check login
+        checkLogin()
 
         // Initialize Firebase Auth
         auth = Firebase.auth
@@ -60,13 +64,19 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                 if(it.isSuccessful)
                 {
+                    //Set myPref to keep login
+                    myPref.setLogin(true)
+                    myPref.setUserName(email)
+
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
                 else
                 {
-                    Toast.makeText(this, "Account does not exist", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,
+                        "Account does not exist",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -74,6 +84,14 @@ class LoginActivity : AppCompatActivity() {
         binding.textviewForgotPassword.setOnClickListener{
             val intent = Intent(this, ResetPasswordActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun checkLogin() {
+        if(myPref.isLogin()!!){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
