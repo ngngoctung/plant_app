@@ -10,7 +10,6 @@ class SessionManager(context: Context?) {
     private val KEY_FULL_NAME = "full_name"
     private val KEY_PASSWORD = "password"
     private val KEY_REMEMBER_ME = "remember_me"
-    private val KEY_RM = "rm"
 
     private val pref: SharedPreferences? = context?.getSharedPreferences(PREF_NAME,
                                                                         Context.MODE_PRIVATE)
@@ -52,7 +51,6 @@ class SessionManager(context: Context?) {
     fun getPassword(): String?{
         return pref?.getString(KEY_PASSWORD, "")
     }
-
 
     fun removeData(){
         editor?.putBoolean(KEY_IS_LOGIN, false)
