@@ -30,6 +30,15 @@ class LoginActivity : AppCompatActivity() {
         var email: String
         var password: String
         var fullName = ""
+        val mapUpdate = mapOf("password" to "44448888")
+//        db.collection("Users").document("locok34641@fectode.com")
+//            .update(mapUpdate)
+//            .addOnSuccessListener {
+//                Log.d(TAG, "Update password success")
+//            }
+//            .addOnFailureListener{
+//                Log.w(TAG, "Update password failed")
+//            }
 
         // Check login
         checkLogin()
@@ -68,11 +77,26 @@ class LoginActivity : AppCompatActivity() {
             password = tfPassword.editText?.text.toString()
 
             // Read data user from FireStore
-            db.collection("Users").document("user2@gmail.com")
+            db.collection("Users").document(email)
                 .get()
                 .addOnSuccessListener {result ->
                     Log.d(TAG, "${result.id} => ${result.data}")
                     fullName = result.data?.get("name").toString()
+
+                    // Update new password to Firestore if user has reset password
+                    val passwordFromFirestore = result.data?.get("password").toString()
+                    if(password != passwordFromFirestore)
+                    {
+                        val mapUpdate = mapOf("password" to password)
+                        db.collection("Users").document(email)
+                            .update(mapUpdate)
+                            .addOnSuccessListener {
+                                Log.d(TAG, "Update password success")
+                            }
+                            .addOnFailureListener{
+                                Log.w(TAG, "Update password failed")
+                            }
+                    }
                 }
                 .addOnFailureListener{exception ->
                     Log.w(TAG, "Error getting documents.", exception)
