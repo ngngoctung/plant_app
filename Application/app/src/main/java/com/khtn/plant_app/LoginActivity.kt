@@ -30,15 +30,6 @@ class LoginActivity : AppCompatActivity() {
         var email: String
         var password: String
         var fullName = ""
-        val mapUpdate = mapOf("password" to "44448888")
-//        db.collection("Users").document("locok34641@fectode.com")
-//            .update(mapUpdate)
-//            .addOnSuccessListener {
-//                Log.d(TAG, "Update password success")
-//            }
-//            .addOnFailureListener{
-//                Log.w(TAG, "Update password failed")
-//            }
 
         // Check login
         checkLogin()
