@@ -63,6 +63,11 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
+        binding.textviewSignup.setOnClickListener{
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.buttonLogin.setOnClickListener{
             email = tfEmail.editText?.text.toString()
             password = tfPassword.editText?.text.toString()
@@ -108,7 +113,7 @@ class LoginActivity : AppCompatActivity() {
                 .addOnFailureListener{exception ->
                     Log.w(TAG, "Error getting documents.", exception)
                 }
-            
+
             // Verify account using Firebase Auth
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                 if(it.isSuccessful)
@@ -145,7 +150,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
     private fun checkLogin() {
         if(myPref.isLogin()!!){
             val intent = Intent(this, MainActivity::class.java)
