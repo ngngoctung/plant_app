@@ -69,8 +69,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.buttonLogin.setOnClickListener{
-            email = tfEmail.editText?.text.toString()
-            password = tfPassword.editText?.text.toString()
+            email = tfEmail.editText?.text.toString().trim()
+            password = tfPassword.editText?.text.toString().trim()
 
             // Set error when empty input email, password
             if (email.isEmpty()) {
