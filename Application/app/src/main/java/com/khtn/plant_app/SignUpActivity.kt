@@ -7,12 +7,15 @@ import android.util.Patterns
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.khtn.plant_app.databinding.ActivitySignUpBinding
 import java.util.regex.Pattern
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private var db = Firebase.firestore
 
     private val PASSWORD_PATTERN = Pattern.compile(
         "^" + "(?=.*[0-9])" +         //at least 1 digit
@@ -85,7 +88,17 @@ class SignUpActivity : AppCompatActivity() {
 
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Toast.makeText(this, "Account successfully created!", Toast.LENGTH_SHORT).show()
+                    val user = hashMapOf(
+                        "email" to email,
+                        "name" to fullName,
+                        "password" to password
+                    )
+                    db.collection("Users").document(email)
+                        .set(user)
+                        .addOnSuccessListener { Toast.makeText(this,
+                            "Account successfully created!", Toast.LENGTH_SHORT).show() }
+                        .addOnFailureListener { Toast.makeText(this,
+                            "Error save user on Database", Toast.LENGTH_SHORT).show()}
                     finish()
                 } else {
                     Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
