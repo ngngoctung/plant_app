@@ -67,6 +67,22 @@ class LoginActivity : AppCompatActivity() {
             email = tfEmail.editText?.text.toString()
             password = tfPassword.editText?.text.toString()
 
+            // Set error when empty input email, password
+            if (email.isEmpty()) {
+                tfEmail.error = "Email cannot be empty"
+                return@setOnClickListener
+            }
+
+            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                tfEmail.error = "Invalid email address"
+                return@setOnClickListener
+            }
+
+            if (password.isEmpty()) {
+                tfPassword.error = "Password cannot be empty"
+                return@setOnClickListener
+            }
+
             // Read data user from FireStore
             db.collection("Users").document(email)
                 .get()
@@ -92,23 +108,7 @@ class LoginActivity : AppCompatActivity() {
                 .addOnFailureListener{exception ->
                     Log.w(TAG, "Error getting documents.", exception)
                 }
-
-            // Set error when empty input email, password
-            if (email.isEmpty()) {
-                tfEmail.error = "Email cannot be empty"
-                return@setOnClickListener
-            }
-
-            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                tfEmail.error = "Invalid email address"
-                return@setOnClickListener
-            }
-
-            if (password.isEmpty()) {
-                tfPassword.error = "Password cannot be empty"
-                return@setOnClickListener
-            }
-
+            
             // Verify account using Firebase Auth
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
                 if(it.isSuccessful)
