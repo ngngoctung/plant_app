@@ -1,8 +1,11 @@
 package com.khtn.plant_app
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import me.relex.circleindicator.CircleIndicator3
 
 class OnBoardingActivity : AppCompatActivity() {
@@ -15,11 +18,48 @@ class OnBoardingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_on_boarding)
         val indicator  = findViewById<CircleIndicator3>(R.id.indicator)
         var view_pager2: ViewPager2 = findViewById(R.id.view_pager2)
+        var button = findViewById<Button>(R.id.button_on_boarding)
+        var pos = 0
 
         postToList()
         view_pager2.adapter = ViewPagerAdapter(titleList, descriptionList, imageList)
         view_pager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         indicator.setViewPager(view_pager2)
+
+        if(pos == 2){
+            button.text = "SIGN IN"
+        }
+        else{
+            button.text = "NEXT"
+        }
+        view_pager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                pos = view_pager2.currentItem
+                if(pos < titleList.size)
+                {
+                    button.text = "NEXT"
+                }
+                if(pos == 2)
+                {
+                    button.text = "SIGN UP"
+                }
+            }
+        })
+        button.setOnClickListener{
+            if(pos == 2){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            if(pos < titleList.size){
+                pos++
+                view_pager2.currentItem = pos
+            }
+        }
+
+
+
+
     }
 
     private fun addToList(title: String, description: String, image: Int ){
