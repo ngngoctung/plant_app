@@ -12,14 +12,20 @@ class OnBoardingActivity : AppCompatActivity() {
     private var titleList = mutableListOf<String>()
     private var descriptionList = mutableListOf<String>()
     private var imageList = mutableListOf<Int>()
+    private lateinit var myPref: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_on_boarding)
+        myPref = SessionManager(this)
         val indicator  = findViewById<CircleIndicator3>(R.id.indicator)
         var view_pager2: ViewPager2 = findViewById(R.id.view_pager2)
         var button = findViewById<Button>(R.id.button_on_boarding)
         var pos = 0
+
+        if(myPref.getOnBoarding()!!){
+            startLoginActivity()
+        }
 
         postToList()
         view_pager2.adapter = ViewPagerAdapter(titleList, descriptionList, imageList)
@@ -47,19 +53,14 @@ class OnBoardingActivity : AppCompatActivity() {
         })
         button.setOnClickListener{
             if(pos == 2){
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
+                myPref.setOnBoarding(true)
+                startLoginActivity()
             }
             if(pos < titleList.size){
                 pos++
                 view_pager2.currentItem = pos
             }
         }
-
-
-
-
     }
 
     private fun addToList(title: String, description: String, image: Int ){
@@ -83,5 +84,11 @@ class OnBoardingActivity : AppCompatActivity() {
             "Let's learn more about beautiful plants and read \n" +
                     "many articles about plants and gardening",
             R.drawable.onboarding3)
+    }
+
+    private fun startLoginActivity(){
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
