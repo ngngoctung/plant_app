@@ -10,6 +10,7 @@ class SessionManager(context: Context?) {
     private val KEY_FULL_NAME = "full_name"
     private val KEY_PASSWORD = "password"
     private val KEY_REMEMBER_ME = "remember_me"
+    private val KEY_ON_BOARDING = "on_boarding"
 
     private val pref: SharedPreferences? = context?.getSharedPreferences(PREF_NAME,
                                                                         Context.MODE_PRIVATE)
@@ -32,6 +33,11 @@ class SessionManager(context: Context?) {
         editor?.apply()
     }
 
+    fun setOnBoarding(isOnBoarding: Boolean){
+        editor?.putBoolean(KEY_ON_BOARDING, isOnBoarding)
+        editor?.apply()
+    }
+
     fun isRememberMe(): Boolean?{
         return pref?.getBoolean(KEY_REMEMBER_ME, false)
     }
@@ -50,6 +56,10 @@ class SessionManager(context: Context?) {
 
     fun getPassword(): String?{
         return pref?.getString(KEY_PASSWORD, "")
+    }
+
+    fun getOnBoarding(): Boolean? {
+        return pref?.getBoolean(KEY_ON_BOARDING, false)
     }
 
     fun removeData(){
