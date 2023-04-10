@@ -47,7 +47,7 @@ class OnBoardingActivity : AppCompatActivity() {
                 }
                 if(pos == 2)
                 {
-                    button.text = "SIGN UP"
+                    button.text = "SIGN IN"
                 }
             }
         })

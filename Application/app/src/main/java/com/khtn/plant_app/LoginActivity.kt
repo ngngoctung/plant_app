@@ -139,7 +139,7 @@ class LoginActivity : AppCompatActivity() {
                 else
                 {
                     Toast.makeText(this,
-                        "Account does not exist",
+                        "Login failed",
                         Toast.LENGTH_SHORT).show()
                 }
             }
