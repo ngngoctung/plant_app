@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initMypPref() {
         myPref = SessionManager(this)
-        binding.userName.text = myPref.getUserName().toString()
-        binding.password.text = myPref.getPassword().toString()
-        binding.name.text = myPref.getFullName().toString()
+//        binding.userName.text = myPref.getUserName().toString()
+//        binding.password.text = myPref.getPassword().toString()
+//        binding.name.text = myPref.getFullName().toString()
     }
 }
