@@ -132,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
                     myPref.setLogin(true)
                     myPref.setInfoUser(email, password, fullName)
 
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, HomePageActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
@@ -152,7 +152,7 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun checkLogin() {
         if(myPref.isLogin()!!){
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, HomePageActivity::class.java)
             startActivity(intent)
             finish()
         }
