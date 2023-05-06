@@ -96,6 +96,7 @@ class LoginActivity : AppCompatActivity() {
                     fullName = result.data?.get("name").toString()
 
                     // Update new password to Firestore if user has reset password
+                    /*
                     val passwordFromFirestore = result.data?.get("password").toString()
                     if(password != passwordFromFirestore)
                     {
@@ -109,6 +110,7 @@ class LoginActivity : AppCompatActivity() {
                                 Log.w(TAG, "Update password failed")
                             }
                     }
+                    */
                 }
                 .addOnFailureListener{exception ->
                     Log.w(TAG, "Error getting documents.", exception)

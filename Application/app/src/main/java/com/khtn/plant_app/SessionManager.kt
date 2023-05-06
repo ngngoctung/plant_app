@@ -2,8 +2,9 @@ package com.khtn.plant_app
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.fragment.app.Fragment
 
-class SessionManager(context: Context?) {
+class SessionManager(context: Context) {
     private val PREF_NAME = "SharedPreferences"
     private val KEY_IS_LOGIN = "is_login"
     private val KEY_EMAIL = "email"
@@ -12,8 +13,8 @@ class SessionManager(context: Context?) {
     private val KEY_REMEMBER_ME = "remember_me"
     private val KEY_ON_BOARDING = "on_boarding"
 
-    private val pref: SharedPreferences? = context?.getSharedPreferences(PREF_NAME,
-                                                                        Context.MODE_PRIVATE)
+    private val pref: SharedPreferences? = context.getSharedPreferences(PREF_NAME,
+        Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor? = pref?.edit()
 
     fun setRememberMe(isRememberMe: Boolean) {
