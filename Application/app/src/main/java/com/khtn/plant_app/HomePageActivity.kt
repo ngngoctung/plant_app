@@ -2,6 +2,7 @@ package com.khtn.plant_app
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -63,8 +64,12 @@ class HomePageActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 101)
         {
-//            val picture: Bitmap? = data?.getParcelableExtra("data")
-//            binding.imageView2.setImageBitmap(picture)
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            val bundle = Bundle()
+            bundle.putParcelable("imageBitmap", imageBitmap)
+            val newFragment = AddingNew()
+            newFragment.arguments = bundle
+            replaceFragment(newFragment)
         }
     }
     override fun onRequestPermissionsResult(
