@@ -100,11 +100,11 @@ class HomePageActivity : AppCompatActivity() {
                 // Xảy ra lỗi trong quá trình tải lên
                 Log.e(TAG, "Upload failed: $exception")
             }
-//            val bundle = Bundle()
-//            bundle.putParcelable("imageBitmap", imageBitmap)
-//            val newFragment = AddingNew()
-//            newFragment.arguments = bundle
-//            replaceFragment(newFragment)
+            val bundle = Bundle()
+            bundle.putParcelable("imageBitmap", imageBitmap)
+            val newFragment = AddingNew()
+            newFragment.arguments = bundle
+            replaceFragment(newFragment)
         }
     }
     override fun onRequestPermissionsResult(
