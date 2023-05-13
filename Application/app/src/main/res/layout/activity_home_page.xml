@@ -20,6 +20,18 @@
 
         </FrameLayout>
 
+        <ProgressBar
+            android:id="@+id/progressBar_wait_adding_new"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="53dp"
+            android:layout_height="47dp"
+            android:visibility="gone"
+            android:background="#D4D7DC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="375dp"

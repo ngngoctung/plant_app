@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.storage.FirebaseStorage
@@ -94,6 +96,8 @@ class HomePageActivity : AppCompatActivity() {
             uploadTask.addOnSuccessListener { taskSnapshot ->
                 // Lấy URL của ảnh từ Firebase Storage
                 storageRef.downloadUrl.addOnSuccessListener { uri ->
+                    binding.progressBarWaitAddingNew.visibility = View.GONE
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     imageUrl = uri.toString()
                     // Ở đây, bạn có thể lưu URL vào Firestore hoặc làm bất kỳ điều gì khác với URL này
                     Log.d(TAG, "Image URL: $imageUrl")
@@ -107,6 +111,12 @@ class HomePageActivity : AppCompatActivity() {
                 // Xảy ra lỗi trong quá trình tải lên
                 Log.e(TAG, "Upload failed: $exception")
             }
+            // Hiển thị ProgressBar
+            binding.progressBarWaitAddingNew.visibility = View.VISIBLE
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
         }
     }
     override fun onRequestPermissionsResult(
