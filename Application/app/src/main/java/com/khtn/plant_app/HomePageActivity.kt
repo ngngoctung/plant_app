@@ -21,7 +21,7 @@ class HomePageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomePageBinding
     private lateinit var myPref: SessionManager
     private lateinit var ref: StorageReference
-    private var TAG = "TEST_URL"
+    private var TAG = "TEST_SAVE_URL"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,14 +74,16 @@ class HomePageActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 101)
-        {
+        {   var imageUrl = "test"
+            var test_url = "test_url"
+            val bundle = Bundle()
             val imageBitmap = data?.extras?.get("data") as Bitmap
 
             val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
             // Tạo một tên ngẫu nhiên cho tệp ảnh
             val imageName = "PLANT_${timeStamp}" + ".jpg"
             val storageRef = ref.child("$imageName")
-            Log.d(TAG, "Image URL: $imageName")
+            Log.d(TAG, "Image name: $imageName")
 
             // Chuyển đổi bitmap thành byte array
             val baos = ByteArrayOutputStream()
@@ -92,19 +94,19 @@ class HomePageActivity : AppCompatActivity() {
             uploadTask.addOnSuccessListener { taskSnapshot ->
                 // Lấy URL của ảnh từ Firebase Storage
                 storageRef.downloadUrl.addOnSuccessListener { uri ->
-                    val imageUrl = uri.toString()
+                    imageUrl = uri.toString()
                     // Ở đây, bạn có thể lưu URL vào Firestore hoặc làm bất kỳ điều gì khác với URL này
                     Log.d(TAG, "Image URL: $imageUrl")
+                    bundle.putParcelable("imageBitmap", imageBitmap)
+                    bundle.putString("url_image", imageUrl)
+                    val newFragment = AddingNew()
+                    newFragment.arguments = bundle
+                    replaceFragment(newFragment)
                 }
             }.addOnFailureListener { exception ->
                 // Xảy ra lỗi trong quá trình tải lên
                 Log.e(TAG, "Upload failed: $exception")
             }
-            val bundle = Bundle()
-            bundle.putParcelable("imageBitmap", imageBitmap)
-            val newFragment = AddingNew()
-            newFragment.arguments = bundle
-            replaceFragment(newFragment)
         }
     }
     override fun onRequestPermissionsResult(
