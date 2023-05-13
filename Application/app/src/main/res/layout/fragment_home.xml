@@ -23,10 +23,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                tools:layout_editor_absoluteX="43dp"
-                tools:layout_editor_absoluteY="236dp">
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="240dp">
 
                 <Button
+                    android:id="@+id/buttonCamera"
                     android:layout_width="110dp"
                     android:layout_height="73dp"
                     android:layout_marginStart="14dp"
@@ -38,6 +39,7 @@
                     android:textSize="10sp" />
 
                 <Button
+                    android:id="@+id/buttonSpecies"
                     android:layout_width="110dp"
                     android:layout_height="73dp"
                     android:layout_marginStart="12dp"
@@ -49,6 +51,7 @@
                     android:textSize="10sp" />
 
                 <Button
+                    android:id="@+id/buttonArticles"
                     android:layout_width="110dp"
                     android:layout_height="73dp"
                     android:layout_marginStart="12dp"
