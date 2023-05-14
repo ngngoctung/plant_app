@@ -7,11 +7,16 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.khtn.plant_app.databinding.FragmentHomeBinding
 
 
@@ -21,6 +26,10 @@ class Home : Fragment() {
     private lateinit var mContext: Context
     private lateinit var myPref: SessionManager
     private val REQUEST_IMAGE_CAPTURE = 1
+    private val fullname = "name"
+    private val avatar = "avatar"
+    private var db = Firebase.firestore
+    private var TAG = "TEST_HOME"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +37,30 @@ class Home : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         initMypPref()
+        // Xu ly cho profile
+        var email = myPref.getUserName().toString()
+        val docRef = db.collection("Users").document(email)  //get emails in collection
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    var fullname = document.getString(fullname).toString()  //get name from firebase
+                    val firstSpace = fullname.indexOf(" ") // detect the first space character
+                    val name: String = fullname.substring(0, firstSpace) // get everything upto the first space character
+                    val avatar: String = document.getString(avatar).toString() //get link avatar
+                    binding.textviewName.setText("Hello " + name + "," )
+                    Glide.with(this)
+                        .load(avatar)
+                        .apply(RequestOptions().circleCrop())
+                        .into(binding.imageviewAvatarHome)
+
+                } else {
+                    Log.d(TAG, "No such document")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
+            }
+        // Ket thuc xu ly cho profile
         binding.buttonLogout2.setOnClickListener{
             myPref.removeData()
             val intent = Intent(activity, LoginActivity::class.java)
