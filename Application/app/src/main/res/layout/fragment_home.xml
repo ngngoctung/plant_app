@@ -20,11 +20,12 @@
 
             <SearchView
                 android:id="@+id/search_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="329dp"
+                android:layout_height="50dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="147dp"
                 android:background="@drawable/search_shape"
+                android:backgroundTint="#FFFFFF"
                 android:iconifiedByDefault="false"
                 android:queryBackground="@android:color/transparent"
                 android:queryHint="Search For Plant"
@@ -40,7 +41,7 @@
                 android:backgroundTint="#FBFDFF"
                 android:drawableTop="@drawable/camera_image"
                 android:text="ADDING NEW"
-                android:textColor="@color/black"
+                android:textColor="#6A6F7D"
                 android:textSize="10sp"
                 app:layout_constraintLeft_toLeftOf="@id/search_view"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +54,7 @@
                 android:backgroundTint="#FBFDFF"
                 android:drawableTop="@drawable/species_image"
                 android:text="SPECIES"
-                android:textColor="@color/black"
+                android:textColor="#6A6F7D"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toStartOf="@+id/buttonArticles"
                 app:layout_constraintStart_toEndOf="@+id/buttonCamera"
@@ -67,7 +68,7 @@
                 android:backgroundTint="#FBFDFF"
                 android:drawableTop="@drawable/article_image"
                 android:text="ARTICLES"
-                android:textColor="@color/black"
+                android:textColor="#6A6F7D"
                 android:textSize="10sp"
                 app:layout_constraintRight_toRightOf="@+id/search_view"
                 app:layout_constraintTop_toTopOf="parent" />
