@@ -11,6 +11,11 @@ import android.view.View
 import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.khtn.plant_app.databinding.ActivityHomePageBinding
@@ -23,13 +28,20 @@ class HomePageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomePageBinding
     private lateinit var myPref: SessionManager
     private lateinit var ref: StorageReference
+    private lateinit var navController: NavController
     private var TAG = "TEST_SAVE_URL"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomePageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(Home())
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragment_container) as NavHostFragment
+
+        navController = navHostFragment.navController
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_view)
+        setupWithNavController(bottomNavigationView, navController)
+//        replaceFragment(Home())
 
         initMypPref()
         binding.fabAddNew.isEnabled = false
@@ -54,14 +66,14 @@ class HomePageActivity : AppCompatActivity() {
             startActivityForResult(takePictureIntent, 101)
         }
 
-        binding.bottomView.setOnItemSelectedListener{
-            when(it.itemId){
-                R.id.i_profile->replaceFragment(Profile())
-                R.id.i_home->replaceFragment(Home())
-                else->{}
-            }
-            true
-        }
+//        binding.bottomView.setOnItemSelectedListener{
+//            when(it.itemId){
+//                R.id.i_profile->replaceFragment(Profile())
+//                R.id.i_home->replaceFragment(Home())
+//                else->{}
+//            }
+//            true
+//        }
 
     }
 
@@ -69,7 +81,8 @@ class HomePageActivity : AppCompatActivity() {
     {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 
@@ -82,7 +95,7 @@ class HomePageActivity : AppCompatActivity() {
             val imageBitmap = data?.extras?.get("data") as Bitmap
 
             val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-            // Tạo một tên ngẫu nhiên cho tệp ảnh
+            // Tạo một tên cho tệp ảnh
             val imageName = "PLANT_${timeStamp}" + ".jpg"
             val storageRef = ref.child("$imageName")
             Log.d(TAG, "Image name: $imageName")

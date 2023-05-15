@@ -13,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.ktx.firestore
@@ -62,20 +64,20 @@ class Home : Fragment() {
             }
         // Ket thuc xu ly cho profile
         binding.buttonLogout2.setOnClickListener{
-            myPref.removeData()
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-            activity?.onBackPressed()
+//            myPref.removeData()
+//            val intent = Intent(activity, LoginActivity::class.java)
+//            startActivity(intent)
+//            activity?.onBackPressed()
         }
 
         binding.buttonSpecies.setOnClickListener{
-            val fragment = Species()
-            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.frame_layout, fragment)?.commit()
+//            val fragment = Species()
+//            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.frame_layout, fragment)?.commit()
         }
 
         binding.buttonArticles.setOnClickListener{
-            val fragment = Species()
-            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.frame_layout, fragment)?.commit()
+//            val fragment = Species()
+//            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.frame_layout, fragment)?.commit()
         }
 
         binding.buttonCamera.setOnClickListener{
@@ -110,5 +112,4 @@ class Home : Fragment() {
         super.onAttach(context)
         mContext = context
     }
-
 }
