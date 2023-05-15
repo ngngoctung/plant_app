@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_home2_to_addingNew"
             app:destination="@id/addingNew" />
+        <action
+            android:id="@+id/action_home2_to_articles"
+            app:destination="@id/articles" />
+        <action
+            android:id="@+id/action_home2_to_species"
+            app:destination="@id/species" />
     </fragment>
 
     <fragment
@@ -29,4 +35,16 @@
             android:id="@+id/action_addingNew_to_home2"
             app:destination="@id/home2" />
     </fragment>
+
+    <fragment
+        android:id="@+id/articles"
+        android:name="com.khtn.plant_app.Articles"
+        android:label="Articles"
+        tools:layout="@layout/fragment_articles"/>
+
+    <fragment
+        android:id="@+id/species"
+        android:name="com.khtn.plant_app.Species"
+        android:label="Species"
+        tools:layout="@layout/fragment_species"/>
 </navigation>

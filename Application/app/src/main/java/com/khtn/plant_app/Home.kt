@@ -64,27 +64,11 @@ class Home : Fragment() {
             }
         // Ket thuc xu ly cho profile
         binding.buttonLogout2.setOnClickListener{
-//            myPref.removeData()
-//            val intent = Intent(activity, LoginActivity::class.java)
-//            startActivity(intent)
-//            activity?.onBackPressed()
+            myPref.removeData()
+            val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+            activity?.onBackPressed()
         }
-
-        binding.buttonSpecies.setOnClickListener{
-//            val fragment = Species()
-//            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.frame_layout, fragment)?.commit()
-        }
-
-        binding.buttonArticles.setOnClickListener{
-//            val fragment = Species()
-//            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.frame_layout, fragment)?.commit()
-        }
-
-        binding.buttonCamera.setOnClickListener{
-            dispatchTakePictureIntent()
-        }
-
-
         return binding.root
     }
 
@@ -111,5 +95,17 @@ class Home : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.buttonArticles.setOnClickListener {
+            val controller = findNavController()
+            controller.navigate(R.id.action_home2_to_articles)
+        }
+        binding.buttonSpecies.setOnClickListener{
+            val controller = findNavController()
+            controller.navigate(R.id.action_home2_to_species)
+        }
     }
 }

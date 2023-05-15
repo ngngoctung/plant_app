@@ -89,7 +89,8 @@ class HomePageActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 101)
-        {   var imageUrl = "test"
+        {
+            var imageUrl = "test"
             var test_url = "test_url"
             val bundle = Bundle()
             val imageBitmap = data?.extras?.get("data") as Bitmap
