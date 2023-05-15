@@ -12,6 +12,8 @@ class SessionManager(context: Context) {
     private val KEY_PASSWORD = "password"
     private val KEY_REMEMBER_ME = "remember_me"
     private val KEY_ON_BOARDING = "on_boarding"
+    private val KEY_TITLE_ARTICLE = "title_article"
+    private val KEY_URl_IMAGE_ARTICLE = "url_image_article"
 
     private val pref: SharedPreferences? = context.getSharedPreferences(PREF_NAME,
         Context.MODE_PRIVATE)
@@ -47,6 +49,16 @@ class SessionManager(context: Context) {
         return pref?.getBoolean(KEY_IS_LOGIN, false)
     }
 
+    fun setTitleArticle(title: String){
+        editor?.putString(KEY_TITLE_ARTICLE, title)
+        editor?.apply()
+    }
+
+    fun setURLArticle(image_url: String){
+        editor?.putString(KEY_URl_IMAGE_ARTICLE, image_url)
+        editor?.apply()
+    }
+
     fun getUserName(): String?{
         return pref?.getString(KEY_EMAIL, "")
     }
@@ -61,6 +73,14 @@ class SessionManager(context: Context) {
 
     fun getOnBoarding(): Boolean? {
         return pref?.getBoolean(KEY_ON_BOARDING, false)
+    }
+
+    fun getTitleArticle(): String? {
+        return pref?.getString(KEY_TITLE_ARTICLE, "")
+    }
+
+    fun getURLArticle(): String? {
+        return pref?.getString(KEY_URl_IMAGE_ARTICLE, "")
     }
 
     fun removeData(){
