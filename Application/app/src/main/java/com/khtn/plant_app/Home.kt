@@ -63,12 +63,6 @@ class Home : Fragment() {
                 Log.d(TAG, "get failed with ", exception)
             }
         // Ket thuc xu ly cho profile
-        binding.buttonLogout2.setOnClickListener{
-            myPref.removeData()
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-            activity?.onBackPressed()
-        }
         return binding.root
     }
 

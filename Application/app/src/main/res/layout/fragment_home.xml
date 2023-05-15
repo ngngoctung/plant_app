@@ -15,8 +15,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".HomePageActivity"
-            android:background="#EFEFEF">
+            android:background="#EFEFEF"
+            tools:context=".HomePageActivity">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,23 +80,6 @@
                 android:textColor="#6A6F7D"
                 android:textSize="10sp"
                 app:layout_constraintRight_toRightOf="@+id/search_view"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_logout_2"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="329dp"
-                android:layout_height="50dp"
-                android:background="@drawable/button_background"
-                android:text="LOG OUT"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                app:backgroundTint="#2DDA93"
-                app:cornerRadius="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.527"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
