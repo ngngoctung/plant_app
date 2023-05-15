@@ -46,20 +46,20 @@ class Articles : Fragment() {
         articlesArrayList = arrayListOf<ArticlesData>()
 
         image_url = arrayOf(
-            "url",
-            "url",
-            "url"
+            "https://haycafe.vn/wp-content/uploads/2022/07/Hinh-anh-cay-tao.jpg",
+            "https://haycafe.vn/wp-content/uploads/2022/07/Hinh-anh-cay-tao.jpg",
+            "https://haycafe.vn/wp-content/uploads/2022/07/Hinh-anh-cay-tao.jpg"
         )
 
         title = arrayOf(
-            "Title of the first",
-            "Title of the second",
-            "Title of the third"
+            "David Austin, Who Breathed Life Into the Rose, Is Dead at 92",
+            "David Austin, Who Breathed Life Into the Rose, Is Dead at 92",
+            "David Austin, Who Breathed Life Into the Rose, Is Dead at 92"
         )
 
         for (i in image_url.indices)
         {
-            val articles = ArticlesData(image_url[i], title[i])
+            val articles = ArticlesData(title[i], image_url[i])
             articlesArrayList.add(articles)
         }
 

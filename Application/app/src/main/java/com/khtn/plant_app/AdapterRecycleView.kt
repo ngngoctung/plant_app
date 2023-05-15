@@ -1,11 +1,14 @@
 package com.khtn.plant_app
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class AdapterRecycleView(private val articleList:  ArrayList<ArticlesData>):
     RecyclerView.Adapter<AdapterRecycleView.MyViewHolder>(){
@@ -22,8 +25,10 @@ class AdapterRecycleView(private val articleList:  ArrayList<ArticlesData>):
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = articleList[position]
-        holder.image.setImageBitmap(null)
         holder.title.text = currentItem.title
+        Glide.with(holder.itemView.context)
+            .load(currentItem.image_url)
+            .into(holder.image)
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
