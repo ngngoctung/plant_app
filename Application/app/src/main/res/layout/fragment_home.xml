@@ -115,6 +115,100 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="325dp"
+                android:text="Plant Types"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#36455A"
+                app:layout_constraintStart_toStartOf="@+id/buttonCamera"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <HorizontalScrollView
+                android:id="@+id/Horizontal_ScrollView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="350dp"
+                tools:ignore="UselessParent"
+                app:layout_constraintStart_toStartOf="@+id/buttonCamera"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="VisualLintBounds">
+
+                    <ImageButton
+                        android:layout_width="299dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="7dp"
+                        android:background="@drawable/image_homeplants"
+                        android:contentDescription="@string/app_name" />
+
+                    <ImageButton
+                        android:layout_width="299dp"
+                        android:layout_height="160dp"
+                        android:layout_margin="7dp"
+                        android:background="@drawable/image_homeplants"
+                        android:contentDescription="@string/app_name" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="548dp"
+                android:text="Photography"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#36455A"
+                app:layout_constraintStart_toStartOf="@+id/buttonCamera"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <HorizontalScrollView
+                android:id="@+id/Horizontal_ScrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="573dp"
+                tools:ignore="UselessParent"
+                app:layout_constraintStart_toStartOf="@+id/buttonCamera"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="VisualLintBounds">
+
+                    <ImageButton
+                        android:id="@+id/Mini"
+                        android:layout_width="166dp"
+                        android:layout_height="144dp"
+                        android:contentDescription="@string/app_name"
+                        android:background="@drawable/image_miniplant"
+                        android:layout_margin="7dp"/>
+                    <ImageButton
+                        android:id="@+id/Homely"
+                        android:layout_width="166dp"
+                        android:layout_height="144dp"
+                        android:contentDescription="@string/app_name"
+                        android:background="@drawable/image_homelyplant"
+                        android:layout_margin="7dp"/>
+                    <ImageButton
+                        android:id="@+id/Cute"
+                        android:layout_width="126dp"
+                        android:layout_height="144dp"
+                        android:contentDescription="@string/app_name"
+                        android:background="@drawable/image_cuteplant"
+                        android:layout_margin="7dp"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
