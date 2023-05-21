@@ -1,9 +1,9 @@
 package com.khtn.plant_app
 
+import android.R.attr
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,8 +12,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.khtn.plant_app.databinding.FragmentSpeciesBinding
@@ -43,11 +41,18 @@ class Species : Fragment() {
             colRef.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    var plantname = document.id
-                    name.set(i, plantname)
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                    var plantname = document.id.toString()
+                    Log.d(TAG, plant)
+                    if(plantname.startsWith(" ", 0)){  //check prefix is space
+                        plantname = plantname.substring(1).trim()
+                    }
+                    var lastName: String = ""
+                    lastName = plantname.substring(plantname.lastIndexOf(" ") + 1)
+                    Log.d(TAG, lastName)
+                    name.set(i, lastName)
                     Log.d(TAG, "${name[i]}")
                     i = i + 1
-                    Log.d(TAG, "${document.id} => ${document.data}")
                 }
             }
             .addOnFailureListener { exception ->
