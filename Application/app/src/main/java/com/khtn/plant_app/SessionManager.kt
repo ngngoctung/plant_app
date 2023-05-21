@@ -13,6 +13,7 @@ class SessionManager(context: Context) {
     private val KEY_REMEMBER_ME = "remember_me"
     private val KEY_ON_BOARDING = "on_boarding"
 
+
     private val pref: SharedPreferences? = context.getSharedPreferences(PREF_NAME,
         Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor? = pref?.edit()
@@ -58,6 +59,7 @@ class SessionManager(context: Context) {
     fun getPassword(): String?{
         return pref?.getString(KEY_PASSWORD, "")
     }
+
 
     fun getOnBoarding(): Boolean? {
         return pref?.getBoolean(KEY_ON_BOARDING, false)
