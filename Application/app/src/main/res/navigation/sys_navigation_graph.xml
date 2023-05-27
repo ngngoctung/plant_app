@@ -40,11 +40,20 @@
         android:id="@+id/articles"
         android:name="com.khtn.plant_app.Articles"
         android:label="Articles"
-        tools:layout="@layout/fragment_articles"/>
+        tools:layout="@layout/fragment_articles">
+        <action
+            android:id="@+id/action_articles_to_detailArticle"
+            app:destination="@id/detailArticle" />
+    </fragment>
 
     <fragment
         android:id="@+id/species"
         android:name="com.khtn.plant_app.Species"
         android:label="Species"
         tools:layout="@layout/fragment_species"/>
+    <fragment
+        android:id="@+id/detailArticle"
+        android:name="com.khtn.plant_app.DetailArticle"
+        android:label="fragment_detail_article"
+        tools:layout="@layout/fragment_detail_article" />
 </navigation>

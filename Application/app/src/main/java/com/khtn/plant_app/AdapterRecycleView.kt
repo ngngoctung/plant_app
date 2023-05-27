@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class AdapterRecycleView(private val articleList:  ArrayList<ArticlesData>):
+class AdapterRecycleView(private val articleList:  ArrayList<ArticlesData>,
+                         val listener: MyClickListener):
     RecyclerView.Adapter<AdapterRecycleView.MyViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,10 +32,21 @@ class AdapterRecycleView(private val articleList:  ArrayList<ArticlesData>):
             .into(holder.image)
     }
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         val image : ImageView = itemView.findViewById(R.id.imageview_image_article)
         val title : TextView = itemView.findViewById(R.id.textView_title_article)
+
+        init {
+            itemView.setOnClickListener{
+                val position = adapterPosition
+                listener.onClick(position)
+            }
+        }
+    }
+
+    interface MyClickListener{
+        fun onClick(position: Int)
     }
 
 }
