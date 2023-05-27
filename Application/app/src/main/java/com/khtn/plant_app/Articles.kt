@@ -2,10 +2,12 @@ package com.khtn.plant_app
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +22,7 @@ class Articles : Fragment(), AdapterRecycleView.MyClickListener {
     private lateinit var mContext: Context
     private var db = Firebase.firestore
     private lateinit var articlesArrayList: ArrayList<ArticlesData>
+    private var TAG = "TEST_ARTICLES"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,13 +36,12 @@ class Articles : Fragment(), AdapterRecycleView.MyClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         InitData()
-
-
     }
 
     private fun InitData() {
         var ten: String? = ""
         var url: String? = ""
+        var desc: String? = ""
 
         val docRef = db.collection("Articles")
         docRef.get()
@@ -48,13 +50,12 @@ class Articles : Fragment(), AdapterRecycleView.MyClickListener {
                 for (document in querySnapshot)
                 {
                     if (document != null) {
-                        ten = document.getString("title").toString()  //get name from firebase
-                        url = document.getString("image_url").toString() //get link avatar
+                        ten = document.getString("title").toString()
+                        url = document.getString("image_url").toString()
+                        desc = document.getString("desc").toString()
 
-                        val articles = ArticlesData(ten,url)
+                        val articles = ArticlesData(ten, url, desc)
                         articlesArrayList.add(articles)
-
-
                     } else {
 
                     }
@@ -77,7 +78,14 @@ class Articles : Fragment(), AdapterRecycleView.MyClickListener {
     }
 
     override fun onClick(position: Int) {
+        Log.d(TAG, "Get url: " + articlesArrayList[position].image_url.toString())
+        Log.d(TAG, "Get titile: " + articlesArrayList[position].title.toString())
+        Log.d(TAG, "Get desc: " + articlesArrayList[position].desc.toString())
+        val bundle = Bundle()
+        bundle.putString("ImageURL", articlesArrayList[position].image_url)
+        bundle.putString("Title", articlesArrayList[position].title)
+        bundle.putString("Desc", articlesArrayList[position].desc)
         val controller = findNavController()
-        controller.navigate(R.id.action_articles_to_detailArticle)
+        controller.navigate(R.id.action_articles_to_detailArticle, bundle)
     }
 }
