@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 
 class ListViewAdapter(private val context: Context, private val dataList: List<DataListView>) : BaseAdapter() {
 
@@ -36,7 +37,11 @@ class ListViewAdapter(private val context: Context, private val dataList: List<D
         }
 
         val data = dataList[position]
-        viewHolder.imageListItem.setImageResource(data.lisviewImage)
+
+        Glide.with(view.context)
+            .load(data.lisviewImage)
+            .into(viewHolder.imageListItem)
+
         viewHolder.txtName.text = data.name
         viewHolder.txtKingdom.text = data.kingdom
         viewHolder.txtFamily.text = data.family
