@@ -50,10 +50,10 @@ class Species : Fragment() {
                         plantname = plantname.substring(1).trim()
                     }
                     Log.d(TAG, "plantname = " + plantname)
-                    var lastName = ""
-                    lastName = plantname.substring(plantname.lastIndexOf(" ") + 1)
-                    Log.d(TAG, "Lastname = " + lastName)
-                    name.add(i, lastName)
+                    var firstName = ""
+                    firstName = plantname.substring(0, plantname.lastIndexOf(' '))
+                    Log.d(TAG, "Lastname = " + firstName)
+                    name.add(i, firstName)
                     Log.d(TAG, name[i])
                     i += 1
 
@@ -70,11 +70,9 @@ class Species : Fragment() {
                 for(l in 0..alphabet.size){
                     if(count == 0)
                         break
-                    //binding.listView.name_textview.setTextColor(Color.parseColor("#2DDA93"))
                     speciesNameList.add(flag, alphabet[l])
                     flag++
                     for(k in 0 until distinctList.size){
-                        Log.d(TAG, "---- k  =  " + k)
                         if(distinctList[k].startsWith(alphabet[l])) {
                             speciesNameList.add(flag, distinctList[k])
                             flag++

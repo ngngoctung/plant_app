@@ -15,8 +15,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".HomePageActivity"
-            android:background="#EFEFEF">
+            android:background="#EFEFEF"
+            tools:context=".HomePageActivity">
 
 
             <ImageView
@@ -41,6 +41,51 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="193dp"
+                android:text="Location"
+                android:textColor="#36455A"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_Species"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="122dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="224dp"
+                android:layout_marginTop="248dp"
+                android:text="Species"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:backgroundTint="#48A2F5"
+                app:cornerRadius="23.5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_Articles"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="122dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="84dp"
+                android:layout_marginTop="248dp"
+                android:text="ARTICLES"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:backgroundTint="#48A2F5"
+                app:cornerRadius="23.5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
