@@ -60,6 +60,9 @@ class Profile : Fragment() {
             binding.buttonArticles.setTextColor(getResources().getColor(R.color.gray_text))
             binding.buttonSpecies.setBackgroundColor(getResources().getColor(R.color.background_button))
             binding.buttonSpecies.setTextColor(getResources().getColor(R.color.white))
+            Toast.makeText(mContext,
+                "Select Species Button",
+                Toast.LENGTH_SHORT).show()
         }
 
         binding.buttonArticles.setOnClickListener {
@@ -67,6 +70,9 @@ class Profile : Fragment() {
             binding.buttonSpecies.setTextColor(getResources().getColor(R.color.gray_text))
             binding.buttonArticles.setBackgroundColor(getResources().getColor(R.color.background_button))
             binding.buttonArticles.setTextColor(getResources().getColor(R.color.white))
+            Toast.makeText(mContext,
+                "Select Articles Button",
+                Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
