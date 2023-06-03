@@ -30,12 +30,21 @@ class AdapterRecycleView(private val articleList:  ArrayList<ArticlesData>,
         Glide.with(holder.itemView.context)
             .load(currentItem.image_url)
             .into(holder.image)
+        if(currentItem.liked == true)
+        {
+            holder.liked.setImageResource(R.drawable.heart_red)
+        }
+        else
+        {
+            holder.liked.setImageResource(R.drawable.heart)
+        }
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         val image : ImageView = itemView.findViewById(R.id.imageview_image_article)
         val title : TextView = itemView.findViewById(R.id.textView_title_article)
+        var liked : ImageView = itemView.findViewById(R.id.imageView_heart)
 
         init {
             itemView.setOnClickListener{
