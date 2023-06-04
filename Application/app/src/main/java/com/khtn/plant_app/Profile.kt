@@ -58,7 +58,7 @@ class Profile : Fragment() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mContext)
 
         imageProfile()
-        //getLastLocation()
+        getLastLocation()
 
         binding.buttonSpecies.setOnClickListener {
             binding.buttonArticles.setBackgroundColor(getResources().getColor(R.color.while_background))
