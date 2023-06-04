@@ -1,5 +1,6 @@
 package com.khtn.plant_app
 
+import android.Manifest
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
@@ -43,8 +44,9 @@ class Profile : Fragment() {
     private val avatar = "avatar"
     private var db = Firebase.firestore
     private var TAG = "TEST_PROFILE"
-    private var PERMISSION_ID = 22
-//    lateinit var locationRequest: LocationRequest
+    private var PERMISSION_ID = 100
+    lateinit var locationRequest: LocationRequest
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
@@ -53,7 +55,10 @@ class Profile : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         myPref = SessionManager(mContext)
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mContext)
+
         imageProfile()
+        getLastLocation()
 
         binding.buttonSpecies.setOnClickListener {
             binding.buttonArticles.setBackgroundColor(getResources().getColor(R.color.while_background))
@@ -103,9 +108,127 @@ class Profile : Fragment() {
             }
     }
 
-    private fun getLocation(){
+    //get the last location
+    private fun getLastLocation(){
+        if(CheckPermission()){
+            if(isLocationEnabled()){
+                if (ActivityCompat.checkSelfPermission(
+                        mContext,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
+                        mContext,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    fusedLocationProviderClient.lastLocation.addOnCompleteListener { task->
+                        var location: Location? = task.result
+                        Log.d(TAG, "------------------------ False")
+                        if(location == null){
+                            getNewLocation()
+                        }else{
+                            Log.d("Debug:" ,"Your Location:"+ location.longitude)
+                            binding.textviewLocation.text = "You Current Location is : Long: "+ location.longitude +
+                                    " , Lat: " + location.latitude
+                        }
+                    }
+                    return
+                }
+
+            }else{
+                Toast.makeText(mContext,"Please Turn on Your device Location",Toast.LENGTH_SHORT).show()
+            }
+        }else{
+            RequestPermission()
+        }
+    }
+
+    private fun getNewLocation(){
+        var locationRequest: LocationRequest = LocationRequest.Builder(1000).apply {
+            this.setPriority(PRIORITY_HIGH_ACCURACY)
+            this.setMinUpdateDistanceMeters(2F)
+            this.setMaxUpdateDelayMillis(0L)
+            this.setMinUpdateIntervalMillis(0)
+        }.build()
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mContext)
+        if (ActivityCompat.checkSelfPermission(
+                mContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                mContext,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationProviderClient!!.requestLocationUpdates(
+                locationRequest,locationCallback, Looper.myLooper()
+            )
+            return
+        }
+    }
+
+    private val locationCallback = object : LocationCallback(){
+        override fun onLocationResult(p0: LocationResult) {
+            var lastLocation = p0.lastLocation
+            binding.textviewLocation.text = "You Current Location is : Long: "+ lastLocation?.longitude +
+                    " , Lat: " + lastLocation?.latitude
+        }
+    }
+
+    //check use permission
+    private fun CheckPermission():Boolean{
+        //this function will return a boolean | true: if we have permission| false if not
+        if(
+            ActivityCompat.checkSelfPermission(mContext,android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED ||
+
+            ActivityCompat.checkSelfPermission(mContext,android.Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED
+        ){
+
+            return true
+        }
+        return false
 
     }
+
+
+    //get user permission
+    private fun RequestPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            PERMISSION_ID
+        )
+    }
+
+
+    //check location service of the device is enabled
+    private fun isLocationEnabled():Boolean{
+        //this function will return to us the state of the location service
+        //if the gps or the network provider is enabled then it will return true otherwise it will return false
+        var locationManager = mContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
+
+
+    //check permission result
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if(requestCode == PERMISSION_ID)
+        {
+            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Log.d("Debug: ", "You have the permission")
+            }
+        }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
