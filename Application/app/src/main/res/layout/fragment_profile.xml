@@ -87,10 +87,10 @@
                 android:layout_marginStart="84dp"
                 android:layout_marginTop="248dp"
                 android:text="ARTICLES"
-                android:textColor="#FFFFFF"
+                android:textColor="#C5C5C5"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                app:backgroundTint="#48A2F5"
+                app:backgroundTint="#EFEFEF"
                 app:cornerRadius="23.5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

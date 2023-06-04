@@ -58,7 +58,7 @@ class Profile : Fragment() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mContext)
 
         imageProfile()
-        getLastLocation()
+        //getLastLocation()
 
         binding.buttonSpecies.setOnClickListener {
             binding.buttonArticles.setBackgroundColor(getResources().getColor(R.color.while_background))
@@ -127,8 +127,8 @@ class Profile : Fragment() {
                             getNewLocation()
                         }else{
                             Log.d("Debug:" ,"Your Location:"+ location.longitude)
-                            binding.textviewLocation.text = "You Current Location is : Long: "+ location.longitude +
-                                    " , Lat: " + location.latitude
+                            binding.textviewLocation.text = getCityName(location.longitude, location.latitude) + ", " +
+                                 getCountryName(location.longitude, location.latitude)
                         }
                     }
                     return
@@ -169,8 +169,10 @@ class Profile : Fragment() {
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(p0: LocationResult) {
             var lastLocation = p0.lastLocation
-            binding.textviewLocation.text = "You Current Location is : Long: "+ lastLocation?.longitude +
-                    " , Lat: " + lastLocation?.latitude
+            if (lastLocation != null) {
+                binding.textviewLocation.text = getCityName(lastLocation.longitude, lastLocation.latitude) + ", " +
+                        getCountryName(lastLocation.longitude, lastLocation.latitude)
+            }
         }
     }
 
@@ -212,6 +214,29 @@ class Profile : Fragment() {
         var locationManager = mContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
+
+
+    //get the city name
+    private fun  getCityName(lat: Double,long: Double): String{
+        var cityName:String = ""
+        var geoCoder = Geocoder(mContext, Locale.getDefault())
+        var Adress = geoCoder.getFromLocation(lat,long,1)
+        if (Adress != null) {
+            cityName = Adress.get(0).locality
+        }
+        return cityName
+    }
+
+    //get the country name
+    private fun  getCountryName(lat: Double,long: Double): String{
+        var countryName:String = ""
+        var geoCoder = Geocoder(mContext, Locale.getDefault())
+        var Adress = geoCoder.getFromLocation(lat,long,1)
+        if (Adress != null) {
+            countryName = Adress.get(0).countryName
+        }
+        return countryName
     }
 
 
