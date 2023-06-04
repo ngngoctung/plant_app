@@ -2,7 +2,6 @@ package com.khtn.plant_app
 
 import android.Manifest
 import android.content.Context
-import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -17,22 +16,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.location.LocationRequestCompat
-import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.khtn.plant_app.databinding.FragmentProfileBinding
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
 import java.util.Locale
 
 
@@ -65,10 +60,7 @@ class Profile : Fragment() {
             binding.buttonArticles.setTextColor(getResources().getColor(R.color.gray_text))
             binding.buttonSpecies.setBackgroundColor(getResources().getColor(R.color.background_button))
             binding.buttonSpecies.setTextColor(getResources().getColor(R.color.white))
-            Toast.makeText(mContext,
-                "Select Species Button",
-                Toast.LENGTH_SHORT).show()
-            binding.textViewTest.setText("Your collected Species")
+            binding.textViewTest.text = "Your collected Species"
         }
 
         binding.buttonArticles.setOnClickListener {
@@ -76,10 +68,7 @@ class Profile : Fragment() {
             binding.buttonSpecies.setTextColor(getResources().getColor(R.color.gray_text))
             binding.buttonArticles.setBackgroundColor(getResources().getColor(R.color.background_button))
             binding.buttonArticles.setTextColor(getResources().getColor(R.color.white))
-            Toast.makeText(mContext,
-                "Select Articles Button",
-                Toast.LENGTH_SHORT).show()
-            binding.textViewTest.setText("Your collected Articles")
+            binding.textViewTest.text = "Your collected Articles"
         }
 
         return binding.root
@@ -128,11 +117,10 @@ class Profile : Fragment() {
                         if(location == null){
                             getNewLocation()
                         }else{
-                            Log.d("Debug:" ,"Your Location:"+ location.longitude)
-                            binding.textviewLocation.text = "You Current Location is : Long: "+ location.longitude +
-                                    " , Lat: " + location.latitude
-//                            binding.textviewLocation.text = getCityName(location.longitude, location.latitude) + ", " +
-//                                 getCountryName(location.longitude, location.latitude)
+//                            binding.textviewLocation.text = "Long: "+ location.longitude +
+//                                    "\nLat: " + location.latitude
+                            binding.textviewLocation.text = getCityName(location.latitude, location.longitude) + ", " +
+                                 getCountryName(location.latitude, location.longitude)
                         }
                     }
                     return
@@ -174,10 +162,8 @@ class Profile : Fragment() {
         override fun onLocationResult(p0: LocationResult) {
             var lastLocation = p0.lastLocation
             if (lastLocation != null) {
-//                binding.textviewLocation.text = getCityName(lastLocation.longitude, lastLocation.latitude) + ", " +
-//                        getCountryName(lastLocation.longitude, lastLocation.latitude)
-                binding.textviewLocation.text = "You Current Location is : Long: "+ lastLocation.longitude +
-                        " , Lat: " + lastLocation.latitude
+                binding.textviewLocation.text = getCityName(lastLocation.latitude, lastLocation.longitude) + ", " +
+                        getCountryName(lastLocation.latitude, lastLocation.longitude)
             }
         }
     }
@@ -227,9 +213,11 @@ class Profile : Fragment() {
     private fun  getCityName(lat: Double,long: Double): String{
         var cityName:String = ""
         var geoCoder = Geocoder(mContext, Locale.getDefault())
-        var Adress = geoCoder.getFromLocation(lat,long,1)
-        if (Adress != null) {
-            cityName = Adress.get(0).locality
+        var Address = geoCoder.getFromLocation(lat,long,1)
+
+        if (Address != null) {
+            val maxAddressLine: Int = Address.get(0).getMaxAddressLineIndex()
+            cityName = Address.get(0).adminArea
         }
         return cityName
     }
@@ -238,9 +226,9 @@ class Profile : Fragment() {
     private fun  getCountryName(lat: Double,long: Double): String{
         var countryName:String = ""
         var geoCoder = Geocoder(mContext, Locale.getDefault())
-        var Adress = geoCoder.getFromLocation(lat,long,1)
-        if (Adress != null) {
-            countryName = Adress.get(0).countryName
+        var Address = geoCoder.getFromLocation(lat,long,1)
+        if (Address != null) {
+            countryName = Address.get(0).countryName
         }
         return countryName
     }
