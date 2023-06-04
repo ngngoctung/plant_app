@@ -68,6 +68,7 @@ class Profile : Fragment() {
             Toast.makeText(mContext,
                 "Select Species Button",
                 Toast.LENGTH_SHORT).show()
+            binding.textViewTest.setText("Your collected Species")
         }
 
         binding.buttonArticles.setOnClickListener {
@@ -78,6 +79,7 @@ class Profile : Fragment() {
             Toast.makeText(mContext,
                 "Select Articles Button",
                 Toast.LENGTH_SHORT).show()
+            binding.textViewTest.setText("Your collected Articles")
         }
 
         return binding.root
@@ -127,8 +129,10 @@ class Profile : Fragment() {
                             getNewLocation()
                         }else{
                             Log.d("Debug:" ,"Your Location:"+ location.longitude)
-                            binding.textviewLocation.text = getCityName(location.longitude, location.latitude) + ", " +
-                                 getCountryName(location.longitude, location.latitude)
+                            binding.textviewLocation.text = "You Current Location is : Long: "+ location.longitude +
+                                    " , Lat: " + location.latitude
+//                            binding.textviewLocation.text = getCityName(location.longitude, location.latitude) + ", " +
+//                                 getCountryName(location.longitude, location.latitude)
                         }
                     }
                     return
@@ -170,8 +174,10 @@ class Profile : Fragment() {
         override fun onLocationResult(p0: LocationResult) {
             var lastLocation = p0.lastLocation
             if (lastLocation != null) {
-                binding.textviewLocation.text = getCityName(lastLocation.longitude, lastLocation.latitude) + ", " +
-                        getCountryName(lastLocation.longitude, lastLocation.latitude)
+//                binding.textviewLocation.text = getCityName(lastLocation.longitude, lastLocation.latitude) + ", " +
+//                        getCountryName(lastLocation.longitude, lastLocation.latitude)
+                binding.textviewLocation.text = "You Current Location is : Long: "+ lastLocation.longitude +
+                        " , Lat: " + lastLocation.latitude
             }
         }
     }
