@@ -40,7 +40,7 @@
                 android:backgroundTint="#FFFFFF"
                 android:iconifiedByDefault="false"
                 android:queryBackground="@android:color/transparent"
-                android:queryHint="Search For Plants"
+                android:queryHint="Search For Species"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
