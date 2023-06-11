@@ -39,9 +39,11 @@ class Articles : Fragment(), AdapterRecycleView.MyClickListener {
     }
 
     private fun InitData() {
+        var id: String? = ""
         var ten: String? = ""
         var url: String? = ""
         var desc: String? = ""
+        var liked: Boolean? = false
 
         val docRef = db.collection("Articles")
         docRef.get()
@@ -50,11 +52,13 @@ class Articles : Fragment(), AdapterRecycleView.MyClickListener {
                 for (document in querySnapshot)
                 {
                     if (document != null) {
+                        id = document.getString("id").toString()
+                        liked = document.getBoolean("liked")
                         ten = document.getString("title").toString()
                         url = document.getString("image_url").toString()
                         desc = document.getString("desc").toString()
 
-                        val articles = ArticlesData(ten, url, desc)
+                        val articles = ArticlesData(id, ten, url, desc, liked)
                         articlesArrayList.add(articles)
                     } else {
 
@@ -82,6 +86,8 @@ class Articles : Fragment(), AdapterRecycleView.MyClickListener {
         Log.d(TAG, "Get titile: " + articlesArrayList[position].title.toString())
         Log.d(TAG, "Get desc: " + articlesArrayList[position].desc.toString())
         val bundle = Bundle()
+        bundle.putString("ID", articlesArrayList[position].id)
+        articlesArrayList[position].liked?.let { bundle.putBoolean("Liked", it) }
         bundle.putString("ImageURL", articlesArrayList[position].image_url)
         bundle.putString("Title", articlesArrayList[position].title)
         bundle.putString("Desc", articlesArrayList[position].desc)
