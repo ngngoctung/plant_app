@@ -1,22 +1,115 @@
 package com.khtn.plant_app
 
+import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.khtn.plant_app.databinding.FragmentArticlesBinding
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.khtn.plant_app.databinding.FragmentSpeciesBinding
+
 
 class Species : Fragment() {
     private lateinit var binding: FragmentSpeciesBinding
+    private lateinit var myPref: SessionManager
+    private lateinit var mContext: Context
+    private var db = Firebase.firestore
+    private val plant = "name"
 
+
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSpeciesBinding.inflate(inflater, container, false)
+        myPref = SessionManager(mContext)
+
+        var name:MutableList<String> = mutableListOf()
+        var alphabet: List<String> = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+            "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
+
+
+
+
+        var i = 0
+        db.collection("Plants")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+//                    Log.d(TAG, "${document.id} => ${document.data}")
+                    var plantname = document.id
+                    if(plantname.startsWith(" ", 0)){  //check prefix is space
+                        plantname = plantname.substring(1).trim()
+                    }
+//                    Log.d(TAG, "plantname = " + plantname)
+                    var firstName = ""
+                    firstName = plantname.substring(0, plantname.indexOf(" "))
+//                    Log.d(TAG, "Lastname = " + firstName)
+                    name.add(i, firstName)
+                    Log.d(TAG, name[i])
+                    i += 1
+
+                }
+                var distinctList = name.distinct().sortedWith(String.CASE_INSENSITIVE_ORDER)    //data from database
+                Log.d(TAG, "------------------------")
+                for(j in 0..(distinctList.size-1)){
+                    Log.d(TAG, distinctList[j])
+                }
+
+
+                var classes: MutableList<AlphabetClass> = mutableListOf()
+                for(j in alphabet.indices){
+                    var speciesNameList: MutableList<SpeciesClass> = mutableListOf()
+                    for(k in distinctList.indices) {
+                        if (distinctList[k].startsWith(alphabet[j])) {
+                            speciesNameList.add(SpeciesClass(distinctList[k]))
+                            //Log.d(TAG, SpeciesClass(test[k]).toString())
+                        }
+                    }
+                    if(speciesNameList.size > 0) {
+                        classes.add(AlphabetClass(alphabet[j], speciesNameList))
+                    }
+                }
+
+
+                for(element in classes){
+                    Log.d(TAG, element.toString())
+                }
+
+                val nestedRecyclerView: RecyclerView = binding.nestedRecyclerView
+                nestedRecyclerView.layoutManager = LinearLayoutManager(mContext)
+                nestedRecyclerView.adapter = AlphabetAdapter(classes)
+
+
+//                binding.nestedRecyclerView.addOnItemTouchListener(RecyclerItemClickListenr(mContext, nestedRecyclerView, object : RecyclerItemClickListenr.OnItemClickListener {
+//
+//                    override fun onItemClick(view: View, position: Int) {
+//                        //do your work here..
+//                    }
+//                    override fun onItemLongClick(view: View?, position: Int) {
+//                        Toast.makeText(mContext, "Item selected " + distinctList[position], Toast.LENGTH_SHORT).show()
+//                    }
+//                }))
+
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
 
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
     }
 }
