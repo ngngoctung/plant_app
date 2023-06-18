@@ -25,7 +25,11 @@
         android:id="@+id/profile"
         android:name="com.khtn.plant_app.Profile"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile_to_detailArticle"
+            app:destination="@id/detailArticle" />
+    </fragment>
     <fragment
         android:id="@+id/addingNew"
         android:name="com.khtn.plant_app.AddingNew"
