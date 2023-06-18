@@ -67,6 +67,7 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
             binding.buttonSpecies.setBackgroundColor(getResources().getColor(R.color.background_button))
             binding.buttonSpecies.setTextColor(getResources().getColor(R.color.white))
             binding.textViewTest.text = "Your collected Species"
+            InitDataSpecies()
         }
 
         binding.buttonArticles.setOnClickListener {
@@ -75,6 +76,7 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
             binding.buttonArticles.setBackgroundColor(getResources().getColor(R.color.background_button))
             binding.buttonArticles.setTextColor(getResources().getColor(R.color.white))
             binding.textViewTest.text = "Your collected Articles"
+            InitDataArticle()
         }
 
         return binding.root
@@ -82,10 +84,10 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        InitData()
+        InitDataSpecies()
     }
 
-    private fun InitData() {
+    private fun InitDataArticle() {
         var ten: String? = ""
         var url: String? = ""
         var desc: String? = ""
@@ -100,6 +102,44 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
                     if (document != null) {
                         liked = document.getBoolean("liked")
                         ten = document.getString("title").toString()
+                        url = document.getString("image_url").toString()
+                        desc = document.getString("desc").toString()
+                        if(liked == true)
+                        {
+                            val collected = CollectedData(ten, url, desc)
+                            collectedsArrayList.add(collected)
+                        }
+                    } else {
+
+                    }
+                }
+                val layoutManager = LinearLayoutManager(context)
+                recycleView = binding.recycleViewCollected
+                recycleView.layoutManager = layoutManager
+                recycleView.setHasFixedSize(true)
+                adapter = AdapterRecycleViewCollected(collectedsArrayList,this@Profile)
+                recycleView.adapter = adapter
+            }
+            .addOnFailureListener{Exception ->
+
+            }
+    }
+
+    private fun InitDataSpecies() {
+        var ten: String? = ""
+        var url: String? = ""
+        var desc: String? = ""
+        var liked: Boolean? = false
+
+        val docRef = db.collection("Plants")
+        docRef.get()
+            .addOnSuccessListener{querySnapshot ->
+                collectedsArrayList = arrayListOf<CollectedData>()
+                for (document in querySnapshot)
+                {
+                    if (document != null) {
+                        liked = document.getBoolean("liked")
+                        ten = document.getString("name").toString()
                         url = document.getString("image_url").toString()
                         desc = document.getString("desc").toString()
                         if(liked == true)
