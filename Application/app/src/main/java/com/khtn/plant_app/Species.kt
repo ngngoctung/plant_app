@@ -8,10 +8,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.khtn.plant_app.databinding.FragmentSpeciesBinding
@@ -34,10 +35,7 @@ class Species : Fragment() {
         myPref = SessionManager(mContext)
 
         var name:MutableList<String> = mutableListOf()
-        var alphabet: List<String> = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
-            "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
-
-
+        var listSpecies:MutableList<String> = mutableListOf()
 
 
         var i = 0
@@ -50,66 +48,51 @@ class Species : Fragment() {
                     if(plantname.startsWith(" ", 0)){  //check prefix is space
                         plantname = plantname.substring(1).trim()
                     }
-//                    Log.d(TAG, "plantname = " + plantname)
-                    var firstName = ""
-                    firstName = plantname.substring(0, plantname.indexOf(" "))
-//                    Log.d(TAG, "Lastname = " + firstName)
-                    name.add(i, firstName)
+                    Log.d(TAG, "plantname = $plantname")
+                    var lastName = ""
+                    lastName = plantname.substring(0, plantname.indexOf(" ")).toLowerCase().capitalize()
+                    Log.d(TAG, "Lastname = $lastName")
+                    name.add(i, lastName)
                     Log.d(TAG, name[i])
                     i += 1
 
                 }
-                var distinctList = name.distinct().sortedWith(String.CASE_INSENSITIVE_ORDER)    //data from database
-                Log.d(TAG, "------------------------")
-                for(j in 0..(distinctList.size-1)){
-                    Log.d(TAG, distinctList[j])
+
+                listSpecies = name.distinct().sortedWith(String.CASE_INSENSITIVE_ORDER) as MutableList<String>
+                Log.d(TAG, listSpecies[0] + listSpecies[1] + listSpecies[2] + listSpecies[3])
+                val arrayAdapter:ArrayAdapter<String> = ArrayAdapter(mContext, android.R.layout.simple_list_item_1, listSpecies)
+                Log.d(TAG, "===================")
+                binding.listView.adapter = arrayAdapter
+                binding.listView.setOnItemClickListener { _, _, i, _ ->
+                    Toast.makeText(mContext, "Item selected " + listSpecies[i], Toast.LENGTH_SHORT).show()
                 }
 
-
-                var classes: MutableList<AlphabetClass> = mutableListOf()
-                for(j in alphabet.indices){
-                    var speciesNameList: MutableList<SpeciesClass> = mutableListOf()
-                    for(k in distinctList.indices) {
-                        if (distinctList[k].startsWith(alphabet[j])) {
-                            speciesNameList.add(SpeciesClass(distinctList[k]))
-                            //Log.d(TAG, SpeciesClass(test[k]).toString())
-                        }
-                    }
-                    if(speciesNameList.size > 0) {
-                        classes.add(AlphabetClass(alphabet[j], speciesNameList))
-                    }
+                Log.d(TAG, "===================")
+                for (i in listSpecies.indices){
+                    Log.d("PRINT", listSpecies[i])
                 }
 
-
-                for(element in classes){
-                    Log.d(TAG, element.toString())
-                }
-
-                val nestedRecyclerView: RecyclerView = binding.nestedRecyclerView
-                nestedRecyclerView.layoutManager = LinearLayoutManager(mContext)
-                nestedRecyclerView.adapter = AlphabetAdapter(classes)
-
-
-//                binding.nestedRecyclerView.addOnItemTouchListener(RecyclerItemClickListenr(mContext, nestedRecyclerView, object : RecyclerItemClickListenr.OnItemClickListener {
-//
-//                    override fun onItemClick(view: View, position: Int) {
-//                        //do your work here..
-//                    }
-//                    override fun onItemLongClick(view: View?, position: Int) {
-//                        Toast.makeText(mContext, "Item selected " + distinctList[position], Toast.LENGTH_SHORT).show()
-//                    }
-//                }))
 
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents: ", exception)
             }
 
+
+
+
+
         return binding.root
     }
 
+
+    private fun initMypPref() {
+        myPref = SessionManager(mContext)
+    }
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
     }
+
+
 }

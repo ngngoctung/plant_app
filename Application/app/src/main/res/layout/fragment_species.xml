@@ -61,20 +61,18 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint"
-                android:layout_width="450dp"
-                android:layout_height="723dp"
+                android:layout_width="412dp"
+                android:layout_height="506dp"
                 android:layout_marginTop="220dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/nestedRecyclerView"
-                    android:layout_width="391dp"
-                    android:layout_height="643dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="415dp"
+                    android:layout_height="511dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
