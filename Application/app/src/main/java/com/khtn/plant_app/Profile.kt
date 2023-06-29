@@ -106,7 +106,7 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
                         desc = document.getString("desc").toString()
                         if(liked == true)
                         {
-                            val collected = CollectedData(ten, url, desc)
+                            val collected = CollectedData(ten, url, desc, liked)
                             collectedsArrayList.add(collected)
                         }
                     } else {
@@ -129,6 +129,8 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
         var ten: String? = ""
         var url: String? = ""
         var desc: String? = ""
+        var family: String? = ""
+        var kingdom: String? = ""
         var liked: Boolean? = false
 
         val docRef = db.collection("Plants")
@@ -141,10 +143,12 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
                         liked = document.getBoolean("liked")
                         ten = document.getString("name").toString()
                         url = document.getString("image_url").toString()
+                        family = document.getString("family").toString()
+                        kingdom = document.getString("kingdom").toString()
                         desc = document.getString("desc").toString()
                         if(liked == true)
                         {
-                            val collected = CollectedData(ten, url, desc)
+                            val collected = CollectedData(ten, url, desc, liked, family, kingdom)
                             collectedsArrayList.add(collected)
                         }
                     } else {
@@ -349,11 +353,23 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
         Log.d(TAG, "Get titile: " + collectedsArrayList[position].title.toString())
         Log.d(TAG, "Get desc: " + collectedsArrayList[position].desc.toString())
         val bundle = Bundle()
+        collectedsArrayList[position].liked?.let { bundle.putBoolean("Liked", it) }
         bundle.putString("ImageURL", collectedsArrayList[position].image_url)
         bundle.putString("Title", collectedsArrayList[position].title)
+        bundle.putString("Name", collectedsArrayList[position].title)
         bundle.putString("Desc", collectedsArrayList[position].desc)
+        bundle.putString("Family", collectedsArrayList[position].family)
+        bundle.putString("Kingdom", collectedsArrayList[position].kingdom)
         val controller = findNavController()
-        controller.navigate(R.id.action_profile_to_detailArticle, bundle)
+        if( binding.textViewTest.text == "Your collected Species")
+        {
+            controller.navigate(R.id.action_profile_to_detailSpecies, bundle)
+        }
+        else
+        {
+            controller.navigate(R.id.action_profile_to_detailArticle, bundle)
+        }
+
     }
 }
 

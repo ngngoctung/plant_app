@@ -1,14 +1,11 @@
 package com.khtn.plant_app
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,7 +33,9 @@ class Species : Fragment(), AdapterRecycleViewSpecies.MyClickListener {
         binding = FragmentSpeciesBinding.inflate(inflater, container, false)
         myPref = SessionManager(mContext)
 
+        binding.imageViewBackSpeciesDetail.setOnClickListener{
 
+        }
 
         return binding.root
     }
