@@ -15,8 +15,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".HomePageActivity"
-            android:background="#EFEFEF">
+            android:background="#EFEFEF"
+            tools:context=".HomePageActivity">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_view_species"
+                android:layout_width="412dp"
+                android:layout_height="509dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_view"
+                tools:listitem="@layout/item_species"/>
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -57,29 +67,6 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint"
-                android:layout_width="450dp"
-                android:layout_height="723dp"
-                android:layout_marginTop="220dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/nestedRecyclerView"
-                    android:layout_width="391dp"
-                    android:layout_height="643dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
