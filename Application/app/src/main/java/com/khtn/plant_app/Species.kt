@@ -92,16 +92,17 @@ class Species : Fragment(), AdapterRecycleViewSpecies.MyClickListener {
     }
 
     override fun onClick(position: Int) {
-//        Log.d(TAG, "Get url: " + articlesArrayList[position].image_url.toString())
+//        Log.d(TAG, "Get url: " +  articlesArrayList[position].image_url.toString())
 //        Log.d(TAG, "Get titile: " + articlesArrayList[position].title.toString())
 //        Log.d(TAG, "Get desc: " + articlesArrayList[position].desc.toString())
-//        val bundle = Bundle()
-//        bundle.putString("ID", speciesArrayList[position].name)
-//        speciesArrayList[position].liked?.let { bundle.putBoolean("Liked", it) }
-//        bundle.putString("ImageURL", speciesArrayList[position].image_url)
-//        bundle.putString("Title", speciesArrayList[position].name)
-//        bundle.putString("Desc", speciesArrayList[position].desc)
-//        val controller = findNavController()
-//        controller.navigate(R.id.action_articles_to_detailArticle, bundle)
+        val bundle = Bundle()
+        bundle.putString("Name", speciesArrayList[position].name)
+        speciesArrayList[position].liked?.let { bundle.putBoolean("Liked", it) }
+        bundle.putString("ImageURL", speciesArrayList[position].image_url)
+        bundle.putString("Family", speciesArrayList[position].family)
+        bundle.putString("Kingdom", speciesArrayList[position].kingdom)
+        bundle.putString("Desc", speciesArrayList[position].desc)
+        val controller = findNavController()
+        controller.navigate(R.id.action_species_to_detailSpecies, bundle)
     }
 }
