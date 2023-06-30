@@ -15,6 +15,7 @@ class SessionManager(context: Context) {
     private val KEY_TITLE_ARTICLE = "title_article"
     private val KEY_URl_IMAGE_ARTICLE = "url_image_article"
 
+
     private val pref: SharedPreferences? = context.getSharedPreferences(PREF_NAME,
         Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor? = pref?.edit()
@@ -70,6 +71,7 @@ class SessionManager(context: Context) {
     fun getPassword(): String?{
         return pref?.getString(KEY_PASSWORD, "")
     }
+
 
     fun getOnBoarding(): Boolean? {
         return pref?.getBoolean(KEY_ON_BOARDING, false)

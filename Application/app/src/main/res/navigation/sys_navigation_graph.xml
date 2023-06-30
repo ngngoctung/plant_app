@@ -25,7 +25,14 @@
         android:id="@+id/profile"
         android:name="com.khtn.plant_app.Profile"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile_to_detailArticle"
+            app:destination="@id/detailArticle" />
+        <action
+            android:id="@+id/action_profile_to_detailSpecies"
+            app:destination="@id/detailSpecies" />
+    </fragment>
     <fragment
         android:id="@+id/addingNew"
         android:name="com.khtn.plant_app.AddingNew"
@@ -50,10 +57,19 @@
         android:id="@+id/species"
         android:name="com.khtn.plant_app.Species"
         android:label="Species"
-        tools:layout="@layout/fragment_species"/>
+        tools:layout="@layout/fragment_species">
+        <action
+            android:id="@+id/action_species_to_detailSpecies"
+            app:destination="@id/detailSpecies" />
+    </fragment>
     <fragment
         android:id="@+id/detailArticle"
         android:name="com.khtn.plant_app.DetailArticle"
         android:label="fragment_detail_article"
         tools:layout="@layout/fragment_detail_article" />
+    <fragment
+        android:id="@+id/detailSpecies"
+        android:name="com.khtn.plant_app.DetailSpecies"
+        android:label="DetailSpecies"
+        tools:layout="@layout/fragment_detail_species"/>
 </navigation>

@@ -15,17 +15,20 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".HomePageActivity"
-            android:background="#EFEFEF">
+            android:background="#EFEFEF"
+            tools:context=".HomePageActivity">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:background="@drawable/background_layout"
+                android:id="@+id/linearLayout5"
+                android:layout_width="508dp"
+                android:layout_height="227dp"
+                android:background="@drawable/background_profile"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+            </LinearLayout>
 
 
             <ImageView
@@ -38,18 +41,93 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_launcher_background" />
 
+            <ImageView
+                android:id="@+id/imageView_logout"
+                android:layout_width="60dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/baseline_logout_24" />
+
             <TextView
                 android:id="@+id/textview_full_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="152dp"
-                android:text="TextView"
-                android:textColor="#FFFFFF"
+                android:text=" "
+                android:textColor="#36455A"
                 android:textSize="23dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="193dp"
+                android:drawableLeft="@drawable/location_sign"
+                android:text=" "
+                android:textColor="#36455A"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_Species"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="122dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="224dp"
+                android:layout_marginTop="248dp"
+                android:text="Species"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp"
+                app:backgroundTint="#48A2F5"
+                app:cornerRadius="23.5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_Articles"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="122dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="84dp"
+                android:layout_marginTop="248dp"
+                android:text="ARTICLES"
+                android:textColor="#C5C5C5"
+                android:textSize="16dp"
+                app:backgroundTint="#EFEFEF"
+                app:cornerRadius="23.5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="328dp"
+                android:text="Your collected Species"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_view_collected"
+                android:layout_width="409dp"
+                android:layout_height="264dp"
+                android:layout_marginTop="120dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+                tools:listitem="@layout/item_collected" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
