@@ -16,7 +16,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private var db = Firebase.firestore
-
+    private var default_avatar = "https://firebasestorage.googleapis.com/v0/b/plant-app-14869.appspot.com/o/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg?alt=media&token=4475e15c-fb30-4e57-8e00-f0f03e9a34d6"
     private val PASSWORD_PATTERN = Pattern.compile(
         "^" + "(?=.*[0-9])" +         //at least 1 digit
                 "(?=.*[a-z])" +         //at least 1 lower case letter
@@ -91,7 +91,8 @@ class SignUpActivity : AppCompatActivity() {
                     val user = hashMapOf(
                         "email" to email,
                         "name" to fullName,
-                        "password" to password
+                        "password" to password,
+                        "avatar" to default_avatar
                     )
                     db.collection("Users").document(email)
                         .set(user)
