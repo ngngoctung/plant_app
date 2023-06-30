@@ -99,6 +99,7 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
         var ten: String? = ""
         var url: String? = ""
         var desc: String? = ""
+        var ID: String? = ""
         var liked: Boolean? = false
 
         val docRef = db.collection("Articles")
@@ -109,12 +110,13 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
                 {
                     if (document != null) {
                         liked = document.getBoolean("liked")
+                        ID = document.getString("id").toString()
                         ten = document.getString("title").toString()
                         url = document.getString("image_url").toString()
                         desc = document.getString("desc").toString()
                         if(liked == true)
                         {
-                            val collected = CollectedData(ten, url, desc, liked)
+                            val collected = CollectedData(ten, url, desc, liked, id=ID)
                             collectedsArrayList.add(collected)
                         }
                     } else {
@@ -364,6 +366,7 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
         collectedsArrayList[position].liked?.let { bundle.putBoolean("Liked", it) }
         bundle.putString("ImageURL", collectedsArrayList[position].image_url)
         bundle.putString("Title", collectedsArrayList[position].title)
+        bundle.putString("ID", collectedsArrayList[position].id)
         bundle.putString("Name", collectedsArrayList[position].title)
         bundle.putString("Desc", collectedsArrayList[position].desc)
         bundle.putString("Family", collectedsArrayList[position].family)

@@ -5,4 +5,5 @@ data class CollectedData(var title: String? = null,
                          var desc: String? = null,
                          var liked: Boolean? = null,
                          var family: String? = null,
-                         var kingdom: String? = null,)
+                         var kingdom: String? = null,
+                         var id: String? = null)
