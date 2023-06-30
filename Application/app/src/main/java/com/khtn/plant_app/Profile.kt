@@ -2,6 +2,7 @@ package com.khtn.plant_app
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -77,6 +78,13 @@ class Profile : Fragment(), AdapterRecycleViewCollected.MyClickListener{
             binding.buttonArticles.setTextColor(getResources().getColor(R.color.white))
             binding.textViewTest.text = "Your collected Articles"
             InitDataArticle()
+        }
+
+        binding.imageViewLogout.setOnClickListener{
+            myPref.setLogin(false)
+            val intent = Intent(activity, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
 
         return binding.root
