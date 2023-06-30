@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sys_navigation_graph"
+    app:startDestination="@id/home2">
+
+    <fragment
+        android:id="@+id/home2"
+        android:name="com.khtn.plant_app.Home"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home2_to_addingNew"
+            app:destination="@id/addingNew" />
+        <action
+            android:id="@+id/action_home2_to_articles"
+            app:destination="@id/articles" />
+        <action
+            android:id="@+id/action_home2_to_species"
+            app:destination="@id/species" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.khtn.plant_app.Profile"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile_to_detailArticle"
+            app:destination="@id/detailArticle" />
+        <action
+            android:id="@+id/action_profile_to_detailSpecies"
+            app:destination="@id/detailSpecies" />
+    </fragment>
+    <fragment
+        android:id="@+id/addingNew"
+        android:name="com.khtn.plant_app.AddingNew"
+        android:label="AddingNew"
+        tools:layout="@layout/fragment_adding_new">
+        <action
+            android:id="@+id/action_addingNew_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/articles"
+        android:name="com.khtn.plant_app.Articles"
+        android:label="Articles"
+        tools:layout="@layout/fragment_articles">
+        <action
+            android:id="@+id/action_articles_to_detailArticle"
+            app:destination="@id/detailArticle" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/species"
+        android:name="com.khtn.plant_app.Species"
+        android:label="Species"
+        tools:layout="@layout/fragment_species">
+        <action
+            android:id="@+id/action_species_to_detailSpecies"
+            app:destination="@id/detailSpecies" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailArticle"
+        android:name="com.khtn.plant_app.DetailArticle"
+        android:label="fragment_detail_article"
+        tools:layout="@layout/fragment_detail_article" />
+    <fragment
+        android:id="@+id/detailSpecies"
+        android:name="com.khtn.plant_app.DetailSpecies"
+        android:label="DetailSpecies"
+        tools:layout="@layout/fragment_detail_species"/>
+</navigation>
