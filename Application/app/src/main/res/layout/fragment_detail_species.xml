@@ -22,11 +22,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/imageview_icon_heart_species"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="290dp"
+            android:layout_marginStart="265dp"
             android:layout_marginTop="200dp"
             android:src="@drawable/icon_heart"
             app:layout_constraintStart_toStartOf="parent"
