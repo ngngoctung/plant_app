@@ -61,7 +61,8 @@ class AddingNew : Fragment() {
                     "kingdom" to kingdom,
                     "family" to family,
                     "image_url" to imageURL,
-                    "desc" to desc
+                    "desc" to desc,
+                    "liked" to false
                 )
                 db.collection("Plants").document(name!!)
                     .set(plant_infor)
